@@ -6,6 +6,16 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://sonchanghan.com/cases/diary-2-insurance-ortho.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sonchanghan.com/cases/diary-1-implant-vs-ortho.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://sonchanghan.com/cases/fixed-retainer.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
