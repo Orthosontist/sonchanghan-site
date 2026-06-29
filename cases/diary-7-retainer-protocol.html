@@ -32,6 +32,7 @@
   }
   .protocol-list { list-style: none; margin: 1.6rem 0; padding: 0; counter-reset: protocol-counter; }
   .protocol-list li { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 0.9rem; font-size: 16px; line-height: 1.7; color: #333; }
+  .protocol-list li .ptext { flex: 1; }
   .protocol-list li::before { counter-increment: protocol-counter; content: counter(protocol-counter); flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #5B7B6E; color: #fff; font-family: sans-serif; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
   .redtext { color: #B5483D; font-weight: 600; }
   .sideblock { border-left: 3px solid #ccc; margin: 1.6rem 0; padding: 0.5rem 0 0.5rem 1.25rem; }
@@ -79,10 +80,10 @@
     <div class="pullquote">유지장치 착용 protocol (손선생 버전)</div>
 
     <ol class="protocol-list">
-      <li>치료 종료 3개월까지 — 식사 및 양치 시간을 제외하고 <span class="redtext">하루 종일</span> 착용합니다. 이 시기가 가장 중요합니다.</li>
-      <li>치료 종료 3개월 ~ 1년 — <span class="redtext">매일 취침 시간</span>에만 착용 (장치 착용 시간 양호 / 재발 양상 X)</li>
-      <li>치료 종료 1년 ~ 2년 — <span class="redtext">격일 취침 시간</span>에만 착용 (장치 착용 시간 양호 / 재발 양상 X)</li>
-      <li>치료 종료 2년 이상 — <span class="redtext">주 2회 취침 시간</span>에만 착용 (장치 착용 시간 양호 / 재발 양상 X)</li>
+      <li><span class="ptext">치료 종료 3개월까지 — 식사 및 양치 시간을 제외하고 <span class="redtext">하루 종일</span> 착용합니다. 이 시기가 가장 중요합니다.</span></li>
+      <li><span class="ptext">치료 종료 3개월 ~ 1년 — <span class="redtext">매일 취침 시간</span>에만 착용 (장치 착용 시간 양호 / 재발 양상 X)</span></li>
+      <li><span class="ptext">치료 종료 1년 ~ 2년 — <span class="redtext">격일 취침 시간</span>에만 착용 (장치 착용 시간 양호 / 재발 양상 X)</span></li>
+      <li><span class="ptext">치료 종료 2년 이상 — <span class="redtext">주 2회 취침 시간</span>에만 착용 (장치 착용 시간 양호 / 재발 양상 X)</span></li>
     </ol>
 
     <p>여기서 핵심은 <strong>장치 착용 시간 양호하고, 재발 양상 없다면</strong>이라는 조건일텐데요.
