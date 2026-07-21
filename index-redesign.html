@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>손창한 교정과 전문의 | Dr. Son Chang Han</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Sans+KR:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── 리셋 & 기본 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: #F7F5F0; color: #2C2C2C; font-family: 'Noto Sans KR', sans-serif; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+
+/* ── 색상 변수 ── */
+:root {
+  --sage: #5B7B6E;
+  --sage-light: #EEF3F1;
+  --gold: #C9B896;
+  --cream: #F7F5F0;
+  --dark: #1A1A18;
+  --text: #2C2C2C;
+  --muted: #888;
+}
+
+/* ── 네비게이션 ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  height: 68px;
+  background: rgba(247,245,240,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+.nav-logo span { color: var(--sage); }
+.nav-links { display: flex; gap: 2.4rem; list-style: none; }
+.nav-links a {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #555;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0; right: 0;
+  height: 1px;
+  background: var(--sage);
+  transform: scaleX(0);
+  transition: transform 0.25s;
+}
+.nav-links a:hover { color: var(--sage); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ── 공통 섹션 ── */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.section-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+/* ── 페이드인 애니메이션 ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-in.delay-1 { transition-delay: 0.15s; }
+.fade-in.delay-2 { transition-delay: 0.3s; }
+.fade-in.delay-3 { transition-delay: 0.45s; }
+
+/* ══════════════════════════════
+   § 1. 히어로
+══════════════════════════════ */
+#hero {
+  background: var(--cream);
+  padding-top: 68px;
+}
+.hero-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  min-height: calc(100vh - 68px);
+}
+.hero-text { }
+.hero-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: var(--sage);
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+}
+.hero-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--text);
+  margin-bottom: 1.6rem;
+  word-break: keep-all;
+}
+.hero-title strong {
+  font-weight: 600;
+  color: var(--sage);
+}
+.hero-subtitle {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #666;
+  max-width: 440px;
+  word-break: keep-all;
+  margin-bottom: 2.4rem;
+}
+.hero-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 2rem;
+}
+.hero-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 15px;
+  color: #555;
+  font-weight: 400;
+}
+.hero-name strong { color: var(--text); font-weight: 600; }
+.hero-photo {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.hero-photo-placeholder {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, #e8e4dc 0%, #d5d0c8 100%);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #aaa;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.hero-photo-placeholder svg { width: 48px; height: 48px; opacity: 0.4; }
+.hero-photo img {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 4px;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #bbb;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  font-family: 'Cormorant Garamond', serif;
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, #bbb, transparent);
+  animation: scrollLine 1.8s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ══════════════════════════════
+   § 2. 철학 (다크 섹션)
+══════════════════════════════ */
+#philosophy {
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+}
+.philosophy-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(91,123,110,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.philosophy-inner {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 8rem 3rem;
+  text-align: center;
+}
+.philosophy-quote-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 6rem;
+  line-height: 0.6;
+  color: var(--gold);
+  opacity: 0.4;
+  margin-bottom: 2rem;
+}
+.philosophy-text {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.9);
+  word-break: keep-all;
+  margin-bottom: 3rem;
+}
+.philosophy-text em {
+  font-style: normal;
+  color: var(--gold);
+  font-weight: 500;
+}
+.philosophy-source {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════
+   § 3. 소개 & 약력
+══════════════════════════════ */
+#about {
+  background: #fff;
+}
+.about-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.about-photo-placeholder {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: linear-gradient(135deg, #f0ede8 0%, #e2ddd5 100%);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #bbb;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+  position: sticky;
+  top: 100px;
+}
+.about-photo-placeholder svg { width: 48px; height: 48px; opacity: 0.4; }
+.about-photo img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 4px;
+  position: sticky;
+  top: 100px;
+}
+.about-content { }
+.about-intro {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text);
+  word-break: keep-all;
+  margin-bottom: 2rem;
+}
+.about-intro strong { font-weight: 600; color: var(--sage); }
+.about-body {
+  font-size: 15.5px;
+  line-height: 1.9;
+  color: #555;
+  word-break: keep-all;
+  margin-bottom: 3rem;
+}
+.timeline { margin-top: 2rem; }
+.timeline-group { margin-bottom: 2rem; }
+.timeline-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.timeline-items { padding-left: 0; list-style: none; }
+.timeline-items li {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #444;
+  padding-left: 16px;
+  position: relative;
+}
+.timeline-items li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 5px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ══════════════════════════════
+   § 4. 상담일지
+══════════════════════════════ */
+#journal {
+  background: var(--cream);
+}
+.journal-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 3rem;
+}
+.journal-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.journal-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+}
+.journal-desc {
+  font-size: 15px;
+  color: #888;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+/* 카드 그리드 */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+}
+.case-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.case-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.10);
+}
+.case-thumb {
+  position: relative;
+  height: 180px;
+  background: var(--sage-light);
+  overflow: hidden;
+}
+.case-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.case-card:hover .case-thumb img { transform: scale(1.04); }
+.case-tag {
+  position: absolute;
+  top: 12px; left: 12px;
+  background: rgba(255,255,255,0.92);
+  font-size: 11px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--sage);
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+.case-body { padding: 1.3rem 1.4rem 1.5rem; }
+.case-body h3 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+  word-break: keep-all;
+}
+.case-body p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #888;
+  word-break: keep-all;
+  margin-bottom: 1rem;
+}
+.case-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--sage);
+  font-weight: 500;
+}
+.case-link svg { width: 14px; height: 14px; }
+
+/* ══════════════════════════════
+   § 5. 푸터
+══════════════════════════════ */
+footer {
+  background: var(--dark);
+  padding: 3.5rem 3rem;
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 1rem;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.05em;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+  .hero-photo { order: -1; }
+  .hero-photo-placeholder, .hero-photo img { max-width: 100%; aspect-ratio: 4/3; object-position: center 20%; }
+  .about-inner { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+  .about-photo-placeholder { aspect-ratio: 4/3; position: static; }
+  .about-photo img { aspect-ratio: 4/3; position: static; object-position: center 20%; }
+  .case-grid { grid-template-columns: 1fr 1fr; }
+  .nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .journal-inner { padding: 4rem 1.5rem; }
+  .philosophy-inner { padding: 5rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  .case-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in { opacity: 1; transform: none; transition: none; }
+  .hero-scroll-line { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- 네비게이션 -->
+<nav class="nav">
+  <div class="nav-logo">Dr. <span>Son</span> Chang Han</div>
+  <ul class="nav-links">
+    <li><a href="#hero" onclick="scrollTo('hero')">홈</a></li>
+    <li><a href="#philosophy" onclick="scrollTo('philosophy')">진료 철학</a></li>
+    <li><a href="#about" onclick="scrollTo('about')">의사 소개</a></li>
+    <li><a href="#journal" onclick="scrollTo('journal')">교정 상담일지</a></li>
+  </ul>
+</nav>
+
+<!-- § 1. 히어로 -->
+<section class="section" id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow fade-in">Orthodontic Specialist · Seoul National University</p>
+      <h1 class="hero-title fade-in delay-1">
+        교정 치료,<br>
+        <strong>정확하게</strong> 이해하고<br>
+        <strong>진심으로</strong> 진료합니다.
+      </h1>
+      <p class="hero-subtitle fade-in delay-2">
+        서울대학교치과병원 교정과에서 수련하며 쌓아온 경험을 바탕으로,
+        환자분 한 분 한 분의 상황에 맞는 교정 치료를 고민합니다.
+      </p>
+      <div class="hero-divider fade-in delay-2"></div>
+      <p class="hero-name fade-in delay-3">교정과 전문의 · 치의학박사 <strong>손창한</strong></p>
+    </div>
+    <div class="hero-photo fade-in delay-1">
+      <!-- 사진 준비되면 아래 주석 해제하고 placeholder div 제거 -->
+      <!-- <img src="images/profile-studio.png" alt="교정과 전문의 손창한"> -->
+      <div class="hero-photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="12" cy="9" r="3"/>
+          <path d="M6 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+        </svg>
+        사진 준비 중
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- § 2. 철학 -->
+<section class="section" id="philosophy">
+  <div class="philosophy-bg"></div>
+  <div class="philosophy-inner">
+    <div class="philosophy-quote-mark fade-in">"</div>
+    <p class="philosophy-text fade-in delay-1">
+      교정 치료는 단순히 치아를 가지런히 하는 것이 아닙니다.<br>
+      <em>환자분이 무엇을 원하는지 정확히 이해하고,</em><br>
+      그 기대에 솔직하게 답하는 것에서 시작합니다.
+    </p>
+    <p class="philosophy-source fade-in delay-2">— Son Chang Han, Orthodontist</p>
+  </div>
+</section>
+
+<!-- § 3. 소개 & 약력 -->
+<section class="section" id="about">
+  <div class="about-inner">
+    <div class="fade-in">
+      <!-- 사진 준비되면 아래 주석 해제하고 placeholder div 제거 -->
+      <!-- <img src="images/profile-outdoor.jpg" alt="서울대학교 치과병원 앞의 손창한 교정과 전문의" class="about-photo"> -->
+      <div class="about-photo-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="12" cy="9" r="3"/>
+          <path d="M6 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+        </svg>
+        사진 준비 중
+      </div>
+    </div>
+    <div class="about-content fade-in delay-1">
+      <p class="section-label">About</p>
+      <h2 class="about-intro">
+        안녕하세요.<br>
+        <strong>교정과 전문의 손창한</strong>입니다.
+      </h2>
+      <p class="about-body">
+        서울대학교 치과대학을 졸업하고, 서울대학교치과병원에서 교정과 전공의 수련을 마쳤습니다.
+        현재는 교정과 Fellowship 과정을 이어가며 진료와 연구를 병행하고 있습니다.
+        <br><br>
+        대학병원에 있으면서 다양한 연령대, 다양한 부정교합의 환자분들을 만나왔습니다.
+        그 경험을 통해 배운 것은, 교정 치료에서 가장 중요한 것은 기술만큼이나
+        환자분과의 충분한 소통이라는 것입니다.
+        <br><br>
+        상담일지를 통해 진료실에서 자주 받는 질문들을 정리하고 있습니다.
+        치료를 고민하시는 분들께 작은 도움이 되었으면 합니다.
+      </p>
+      <div class="timeline">
+        <div class="timeline-group">
+          <p class="timeline-year">Education</p>
+          <ul class="timeline-items">
+            <li>서울대학교 치과대학 졸업</li>
+            <li>서울대학교 대학원 치의학박사 (교정학 전공, 수석 졸업)</li>
+          </ul>
+        </div>
+        <div class="timeline-group">
+          <p class="timeline-year">Training & Fellowship</p>
+          <ul class="timeline-items">
+            <li>서울대학교치과병원 치과교정과 전공의 수료</li>
+            <li>서울대학교치과병원 치과교정과 Fellow (현재)</li>
+          </ul>
+        </div>
+        <div class="timeline-group">
+          <p class="timeline-year">Academic Activities</p>
+          <ul class="timeline-items">
+            <li>대한치과교정학회 교육위원회 위원</li>
+            <li>대한치과교정학회 임상저널 편집위원회 위원</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § 4. 상담일지 -->
+<section class="section" id="journal" style="align-items: flex-start;">
+  <div class="journal-inner">
+    <div class="journal-header fade-in">
+      <p class="section-label">Consultation Journal</p>
+      <h2 class="journal-title">교정 상담일지</h2>
+      <p class="journal-desc">진료실에서 환자분들과 나눈 이야기, 그리고 그 안에서 다시 생각해보게 된 것들을 기록합니다.</p>
+    </div>
+    <div class="case-grid">
+
+      <a href="cases/diary-10-fixed-retainer.html" class="case-card fade-in">
+        <div class="case-thumb">
+          <span class="case-tag">상담일지</span>
+          <img src="images/diary10-img1.jpg" alt="고정식 유지장치 구내 사진">
+        </div>
+        <div class="case-body">
+          <h3>고정식 유지장치, 평생 해야 하나요?</h3>
+          <p>고정식 유지장치(FR)가 붙어 있어도 정기 검진이 필요한 이유를 정리했습니다.</p>
+          <span class="case-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a href="cases/diary-9-senior-orthodontics.html" class="case-card fade-in delay-1">
+        <div class="case-thumb">
+          <span class="case-tag">상담일지</span>
+          <img src="images/diary9-img2.jpg" alt="시니어 환자 구내 사진">
+        </div>
+        <div class="case-body">
+          <h3>60대 교정 치료 가능할까요?</h3>
+          <p>나이 들면 앞니가 틀어지는 이유와 시니어 교정 치료의 가능성을 정리했습니다.</p>
+          <span class="case-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a href="cases/diary-8-military-checkup.html" class="case-card fade-in delay-2">
+        <div class="case-thumb">
+          <span class="case-tag">상담일지</span>
+          <img src="images/diary8-img1.jpg" alt="병역 신체검사 안내 이미지">
+        </div>
+        <div class="case-body">
+          <h3>부정교합으로 군면제 혹은 공익될 수 있나요?</h3>
+          <p>병역판정 신체검사 별표 3 원문을 바탕으로 치과 기준을 정리했습니다.</p>
+          <span class="case-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a href="cases/diary-7-retainer-protocol.html" class="case-card fade-in">
+        <div class="case-thumb">
+          <span class="case-tag">상담일지</span>
+          <img src="images/diary7-img1.jpg" alt="유지장치 일러스트">
+        </div>
+        <div class="case-body">
+          <h3>유지장치는 언제까지 끼나요?</h3>
+          <p>가철식 유지장치 착용 프로토콜을 단계별로 정리했습니다.</p>
+          <span class="case-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a href="cases/diary-6-communication.html" class="case-card fade-in delay-1">
+        <div class="case-thumb">
+          <span class="case-tag">상담일지</span>
+          <img src="images/diary6-img1.png" alt="상담 장면 사진">
+        </div>
+        <div class="case-body">
+          <h3>소통이 치료입니다</h3>
+          <p>다른 병원에서 치료 중인 환자분을 만났을 때 느낀 점들을 기록한 상담일지입니다.</p>
+          <span class="case-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a href="cases/diary-5-canine-substitution.html" class="case-card fade-in delay-2">
+        <div class="case-thumb">
+          <span class="case-tag">상담일지</span>
+          <img src="images/diary5-img1.jpg" alt="파노라마 X-ray">
+        </div>
+        <div class="case-body">
+          <h3>앞니가 없는 초등학생을 만났습니다</h3>
+          <p>측절치 선천성 결손 시 송곳니 대치(canine substitution)로 치료하는 방법을 소개합니다.</p>
+          <span class="case-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a href="cases/diary-4-tmj-orthodontics.html" class="case-card fade-in">
+        <div class="case-thumb">
+          <span class="case-tag">상담일지</span>
+          <img src="images/diary4-img1.jpg" alt="턱관절 해부도">
+        </div>
+        <div class="case-body">
+          <h3>턱관절이 아프시진 않으신가요?</h3>
+          <p>턱관절(TMJ) 질환이 있을 때 교정치료를 바로 시작하면 안 되는 이유를 정리했습니다.</p>
+          <span class="case-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a href="cases/diary-3-orthognathic-surgery.html" class="case-card fade-in delay-1">
+        <div class="case-thumb">
+          <span class="case-tag">상담일지</span>
+          <img src="images/diary3-img1.jpg" alt="두개골 교정 범위 그림">
+        </div>
+        <div class="case-body">
+          <h3>수술교정, 어떻게 진행되는 건가요?</h3>
+          <p>술전 교정-악교정 수술-술후 교정 3단계 과정을 정리했습니다.</p>
+          <span class="case-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a href="cases/diary-2-insurance-ortho.html" class="case-card fade-in delay-2">
+        <div class="case-thumb">
+          <span class="case-tag">상담일지</span>
+          <img src="images/diary2-img1.jpg" alt="교정 보험 급여 안내">
+        </div>
+        <div class="case-body">
+          <h3>교정 치료도 건강보험이 될 때가 있습니다</h3>
+          <p>구순구개열, 선천성 악안면 기형 등 급여 교정 치료 대상 질환을 정리했습니다.</p>
+          <span class="case-link">자세히 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- 푸터 -->
+<footer>
+  <p class="footer-logo">Dr. Son Chang Han</p>
+  <ul class="footer-links">
+    <li><a href="https://blog.naver.com/ckdtgks" target="_blank" rel="noopener">네이버 블로그</a></li>
+    <li><a href="#hero">맨 위로</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Son Chang Han, D.D.S., Ph.D. · Orthodontic Specialist</p>
+</footer>
+
+<script>
+// 네비게이션 smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// 스크롤 페이드인 애니메이션
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// 네비게이션 스크롤 시 배경 강화
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('.nav');
+  if (window.scrollY > 40) {
+    nav.style.background = 'rgba(247,245,240,0.98)';
+    nav.style.boxShadow = '0 1px 20px rgba(0,0,0,0.06)';
+  } else {
+    nav.style.background = 'rgba(247,245,240,0.92)';
+    nav.style.boxShadow = 'none';
+  }
+});
+</script>
+
+</body>
+</html>
