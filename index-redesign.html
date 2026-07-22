@@ -82,15 +82,17 @@ a { text-decoration: none; color: inherit; }
    § 1. HERO
 ════════════════════════ */
 #hero {
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
+  max-height: calc(100vh - 64px);
   padding-top: 64px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 54% 46%;
   align-items: center;
   gap: 0;
+  overflow: hidden;
 }
 .hero-text {
-  padding: 0 5rem 0 4rem;
+  padding: 0 4rem 0 4rem;
 }
 .hero-eyebrow {
   font-family: 'Cormorant Garamond', serif;
@@ -103,7 +105,7 @@ a { text-decoration: none; color: inherit; }
 }
 .hero-main {
   font-family: 'Noto Serif KR', serif;
-  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-size: clamp(1.8rem, 2.8vw, 2.8rem);
   font-weight: 200;
   line-height: 1.4;
   letter-spacing: -0.01em;
@@ -113,7 +115,7 @@ a { text-decoration: none; color: inherit; }
 }
 .hero-sub {
   font-family: 'Noto Serif KR', serif;
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
   font-weight: 300;
   line-height: 1.8;
   color: var(--muted);
@@ -122,6 +124,19 @@ a { text-decoration: none; color: inherit; }
 }
 .hero-sig {
   display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.hero-greeting {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+.hero-sig-name {
+  display: flex;
   align-items: center;
   gap: 1.2rem;
 }
@@ -129,6 +144,7 @@ a { text-decoration: none; color: inherit; }
   width: 32px;
   height: 1px;
   background: var(--gold);
+  flex-shrink: 0;
 }
 .hero-sig-text {
   font-family: 'Cormorant Garamond', serif;
@@ -137,14 +153,17 @@ a { text-decoration: none; color: inherit; }
   color: var(--muted);
 }
 .hero-photo-wrap {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
+  height: calc(100vh - 64px);
+  max-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 3rem 3rem 1rem;
 }
 .hero-photo-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: top center;
   mix-blend-mode: multiply;
 }
@@ -381,9 +400,9 @@ footer {
 
 /* ── 반응형 ── */
 @media (max-width: 960px) {
-  #hero { grid-template-columns: 1fr; }
-  .hero-text { padding: 5rem 2rem 3rem; }
-  .hero-photo-wrap { height: 70vw; }
+  #hero { grid-template-columns: 1fr; min-height: auto; max-height: none; }
+  .hero-text { padding: 4rem 2rem 3rem; }
+  .hero-photo-wrap { height: 70vw; max-height: 70vw; padding: 1.5rem 2rem; }
   .nav { padding: 0 2rem; }
   .nav-links { display: none; }
   #philosophy { padding: 6rem 2rem; }
@@ -428,8 +447,11 @@ footer {
       서두르지 않고, 함께 답을 찾습니다.
     </p>
     <div class="hero-sig reveal d3">
-      <span class="hero-sig-line"></span>
-      <span class="hero-sig-text">교정과 전문의 · 치의학박사 &nbsp; 손 창 한</span>
+      <span class="hero-greeting">만나서 반갑습니다.</span>
+      <div class="hero-sig-name">
+        <span class="hero-sig-line"></span>
+        <span class="hero-sig-text">교정과 전문의 · 치의학박사 &nbsp; 손 창 한</span>
+      </div>
     </div>
   </div>
   <div class="hero-photo-wrap">
