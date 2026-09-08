@@ -1,0 +1,8 @@
+[build]
+  command = ""
+  publish = "."
+
+[[headers]]
+  for = "/index-redesign.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
