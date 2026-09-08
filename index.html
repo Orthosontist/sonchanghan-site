@@ -1,622 +1,114 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
-
-/* ── 리셋 ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
-body {
-  background: #F8F6F2;
-  color: #1C1C1A;
-  font-family: 'Noto Sans KR', sans-serif;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-img { display: block; max-width: 100%; }
-a { text-decoration: none; color: inherit; }
-
-:root {
-  --cream: #F8F6F2;
-  --dark: #1C1C1A;
-  --sage: #5B7B6E;
-  --gold: #B8A07A;
-  --muted: #888880;
-  --border: rgba(28,28,26,0.1);
-}
-
-/* ── 네비게이션 ── */
-.nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 4rem;
-  height: 64px;
-  background: rgba(248,246,242,0.95);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 17px;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  color: var(--dark);
-}
-.nav-links {
-  display: flex;
-  gap: 2.8rem;
-  list-style: none;
-}
-.nav-links a {
-  font-size: 13px;
-  font-weight: 300;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  transition: color 0.25s;
-}
-.nav-links a:hover { color: var(--dark); }
-
-/* ── 페이드인 ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94),
-              transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal.d1 { transition-delay: 0.2s; }
-.reveal.d2 { transition-delay: 0.4s; }
-.reveal.d3 { transition-delay: 0.6s; }
-
-/* ════════════════════════
-   § 1. HERO
-════════════════════════ */
-#hero {
-  min-height: calc(100vh - 64px);
-  max-height: calc(100vh - 64px);
-  padding-top: 64px;
-  display: grid;
-  grid-template-columns: 54% 46%;
-  align-items: center;
-  gap: 0;
-  overflow: hidden;
-}
-.hero-text {
-  padding: 0 4rem 0 4rem;
-}
-.hero-eyebrow {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 3rem;
-  line-height: 1.8;
-}
-.hero-main {
-  font-family: 'Noto Serif KR', serif;
-  font-size: clamp(1.8rem, 2.8vw, 2.8rem);
-  font-weight: 200;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  color: var(--dark);
-  margin-bottom: 2.4rem;
-  word-break: keep-all;
-}
-.hero-sub {
-  font-family: 'Noto Serif KR', serif;
-  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
-  font-weight: 300;
-  line-height: 1.8;
-  color: var(--muted);
-  margin-bottom: 4rem;
-  word-break: keep-all;
-}
-.hero-sig {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-.hero-greeting {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--muted);
-  letter-spacing: 0.04em;
-  opacity: 0.8;
-}
-.hero-sig-name {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-.hero-sig-line {
-  width: 32px;
-  height: 1px;
-  background: var(--gold);
-  flex-shrink: 0;
-}
-.hero-sig-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 14px;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-}
-.hero-photo-wrap {
-  height: calc(100vh - 64px);
-  max-height: calc(100vh - 64px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 3rem 3rem 1rem;
-}
-.hero-photo-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: top center;
-  mix-blend-mode: multiply;
-}
-
-/* ════════════════════════
-   § 2. PHILOSOPHY STATEMENT
-════════════════════════ */
-#philosophy {
-  padding: 12rem 4rem;
-  max-width: 780px;
-  margin: 0 auto;
-}
-.phil-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 3rem;
-}
-.phil-heading {
-  font-family: 'Noto Serif KR', serif;
-  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-  font-weight: 300;
-  line-height: 1.5;
-  color: var(--dark);
-  margin-bottom: 3.5rem;
-  word-break: keep-all;
-}
-.phil-heading em {
-  font-style: normal;
-  font-weight: 500;
-  color: var(--sage);
-}
-.phil-body {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.05rem;
-  font-weight: 300;
-  line-height: 2.4;
-  color: #444440;
-  word-break: keep-all;
-  border-left: 1px solid var(--border);
-  padding-left: 2.4rem;
-}
-.phil-body p { margin-bottom: 1.6rem; }
-.phil-body p:last-child { margin-bottom: 0; }
-.phil-body em {
-  font-style: normal;
-  font-weight: 500;
-  color: var(--dark);
-}
-
-/* ════════════════════════
-   § 3. PHILOSOPHY ITEMS
-════════════════════════ */
-#values {
-  background: var(--dark);
-  padding: 10rem 4rem;
-}
-.values-inner {
-  max-width: 860px;
-  margin: 0 auto;
-}
-.values-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 12px;
-  letter-spacing: 0.25em;
-  color: rgba(255,255,255,0.25);
-  text-transform: uppercase;
-  margin-bottom: 5rem;
-}
-.value-item {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 0 3rem;
-  padding: 4rem 0;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-.value-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
-.value-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px;
-  letter-spacing: 0.15em;
-  color: var(--gold);
-  padding-top: 4px;
-}
-.value-content {}
-.value-title {
-  font-family: 'Noto Serif KR', serif;
-  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
-  font-weight: 400;
-  color: rgba(255,255,255,0.92);
-  margin-bottom: 1.6rem;
-  line-height: 1.5;
-  word-break: keep-all;
-}
-.value-body {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 2.2;
-  color: rgba(255,255,255,0.45);
-  word-break: keep-all;
-}
-.value-body p { margin-bottom: 0.4rem; }
-.value-body p:last-child { margin-bottom: 0; }
-
-/* ════════════════════════
-   § 4. JOURNAL
-════════════════════════ */
-#journal {
-  padding: 10rem 4rem;
-}
-.journal-inner { max-width: 1100px; margin: 0 auto; }
-.section-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 5rem;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1.5rem;
-}
-.section-title {
-  font-family: 'Noto Serif KR', serif;
-  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-  font-weight: 300;
-  color: var(--dark);
-  letter-spacing: 0.02em;
-}
-.section-label-sm {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-.case-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-.case-card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  background: #fff;
-  overflow: hidden;
-  transition: opacity 0.25s;
-}
-.case-card:hover { opacity: 0.82; }
-.case-thumb {
-  position: relative;
-  aspect-ratio: 4/3;
-  background: #ede9e2;
-  overflow: hidden;
-}
-.case-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.case-card:hover .case-thumb img { transform: scale(1.04); }
-.case-tag {
-  position: absolute;
-  top: 14px; left: 14px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  color: rgba(255,255,255,0.85);
-  text-transform: uppercase;
-  background: rgba(28,28,26,0.35);
-  padding: 4px 10px;
-  border-radius: 2px;
-  backdrop-filter: blur(4px);
-}
-.case-body { padding: 1.6rem 1.5rem 1.8rem; }
-.case-body h3 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.55;
-  color: var(--dark);
-  margin-bottom: 0.6rem;
-  word-break: keep-all;
-}
-.case-body p {
-  font-size: 12.5px;
-  line-height: 1.7;
-  color: var(--muted);
-  word-break: keep-all;
-  margin-bottom: 1.2rem;
-}
-.case-arrow {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  color: var(--gold);
-}
-
-/* ════════════════════════
-   FOOTER
-════════════════════════ */
-footer {
-  background: var(--dark);
-  padding: 3rem 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-.footer-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px;
-  letter-spacing: 0.15em;
-  color: rgba(255,255,255,0.4);
-}
-.footer-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
-.footer-links a {
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  color: rgba(255,255,255,0.25);
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: rgba(255,255,255,0.6); }
-.footer-copy {
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: rgba(255,255,255,0.15);
-}
-
-/* ── 반응형 ── */
-@media (max-width: 960px) {
-  #hero { grid-template-columns: 1fr; min-height: auto; max-height: none; }
-  .hero-text { padding: 4rem 2rem 3rem; }
-  .hero-photo-wrap { height: 70vw; max-height: 70vw; padding: 1.5rem 2rem; }
-  .nav { padding: 0 2rem; }
-  .nav-links { display: none; }
-  #philosophy { padding: 6rem 2rem; }
-  #values { padding: 6rem 2rem; }
-  .value-item { grid-template-columns: 50px 1fr; gap: 0 1.5rem; }
-  #journal { padding: 6rem 2rem; }
-  .case-grid { grid-template-columns: 1fr 1fr; }
-  footer { flex-direction: column; gap: 1.2rem; text-align: center; padding: 2.5rem 2rem; }
-}
-@media (max-width: 600px) {
-  .case-grid { grid-template-columns: 1fr; }
-  .hero-main { font-size: 1.8rem; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
-
-:root { --muted:#66665f; --sage:#29465c; }
-html { scroll-padding-top:90px; } body {word-break:keep-all;}
-#hero {display:block;min-height:0;max-height:none;padding:96px 6vw 32px;overflow:visible;}
-.hero-inner {max-width:1400px;margin:auto;display:grid;grid-template-columns:1.08fr 1fr;gap:clamp(56px,6vw,110px);align-items:center;}
-.hero-text {padding:0;}.hero-main {font-size:clamp(2rem,3.4vw,3.7rem);}
-.hero-photo-wrap {height:calc(100svh - 150px);max-height:800px;padding:0;min-height:380px;}
-.hero-eyebrow{font-size:14px;letter-spacing:.18em;}.hero-sub{font-size:18px;}
-.reveal {opacity:1;transform:none;}
-#about{background:#efede6;padding:100px 6vw;}.about-inner{max-width:1100px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}.about-inner img{width:100%;height:auto;}.about-inner h2{font-size:36px;font-weight:400;margin:28px 0;}.about-inner p{font-size:17px;line-height:2;}.credentials{border-top:1px solid #ccc;margin-top:30px;padding-top:20px;}.credentials li{font-size:16px;line-height:2;list-style:none;}.skip{position:absolute;top:-100px;}.skip:focus{top:10px;z-index:100;background:white;padding:15px;}
-@media(max-width:760px){#hero{padding:110px 24px 40px;}.hero-inner{grid-template-columns:1fr;gap:32px;}.hero-photo-wrap{height:65svh;min-height:300px;max-height:600px;}.hero-text{padding:0;}.hero-eyebrow{font-size:13px;}.hero-sub{margin-bottom:36px;}.about-inner{grid-template-columns:1fr;gap:32px;}#about{padding:64px 24px;}.nav-links{display:flex;gap:16px;}.nav-logo{font-size:19px;}.nav{padding-left:24px;padding-right:24px;}.nav-links a{font-size:14px;}}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;}}
-
-.nav-links a{font-size:14px}.value-body{color:rgba(255,255,255,.72);font-size:16px}.case-body p{font-size:16px}.footer-copy{color:rgba(255,255,255,.65)}
-a:focus-visible,button:focus-visible{outline:2px solid #9b7135;outline-offset:5px}
-@media(max-width:760px){.nav{height:auto;min-height:76px;flex-wrap:wrap;justify-content:center;column-gap:24px;row-gap:4px;padding-top:10px;padding-bottom:10px}.nav-logo{letter-spacing:.1em}.nav-links{flex-wrap:wrap;justify-content:center;gap:18px}.section-header{flex-wrap:wrap;gap:12px}.hero-inner>*{min-width:0;}.hero-sig-text{letter-spacing:.05em} }
-</style>
-<link rel="canonical" href="https://drsonchanghan.com/"><title>손창한 | 교정과 전문의 · 서울대학교치과병원 임상강사</title><meta name="description" content="교정과 전문의 손창한의 개인 홈페이지. 서울대학교치과병원 임상강사로서의 진료 철학과 교정 상담일지, 유지장치·성장기 교정·수술교정에 관한 기록을 소개합니다."><meta name="author" content="손창한"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR"><meta property="og:title" content="손창한 | 교정과 전문의 · 서울대학교치과병원 임상강사"><meta property="og:description" content="교정과 전문의 손창한의 개인 홈페이지. 서울대학교치과병원 임상강사로서의 진료 철학과 교정 상담일지, 유지장치·성장기 교정·수술교정에 관한 기록을 소개합니다."><meta property="og:url" content="https://drsonchanghan.com/"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "url": "https://drsonchanghan.com/", "inLanguage": "ko-KR", "author": {"@type": "Person", "@id": "https://drsonchanghan.com/#author", "name": "손창한", "alternateName": "Son Chang Han", "jobTitle": "치과교정과 전문의 · 임상강사", "url": "https://drsonchanghan.com/#about", "sameAs": ["https://blog.naver.com/ckdtgks"], "worksFor": {"@type": "Organization", "name": "서울대학교치과병원"}}, "name": "손창한 | 교정과 전문의 · 서울대학교치과병원 임상강사", "description": "교정과 전문의 손창한의 개인 홈페이지. 서울대학교치과병원 임상강사로서의 진료 철학과 교정 상담일지, 유지장치·성장기 교정·수술교정에 관한 기록을 소개합니다."}</script></head>
-<body><a class="skip" href="#hero">본문으로 이동</a>
-
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo">Son Chang Han</div>
-  <ul class="nav-links">
-    <li><a href="#philosophy">진료 철학</a></li>
-    <li><a href="#about">소개</a></li>
-    <li><a href="#journal">상담일지</a></li>
-  </ul>
-</nav>
-
-<main><!-- § 1. HERO -->
-<section id="hero"><div class="hero-inner">
-  <div class="hero-text">
-    <p class="hero-eyebrow reveal">
-      Orthodontist<br>
-      Seoul National University Dental Hospital
-    </p>
-    <h1 class="hero-main reveal d1">
-      좋은 교정은<br>시작이 다릅니다.
-    </h1>
-    <p class="hero-sub reveal d2">
-      서두르지 않고, 함께 답을 찾습니다.
-    </p>
-    <div class="hero-sig reveal d3">
-      <span class="hero-greeting">만나서 반갑습니다.</span>
-      <div class="hero-sig-name">
-        <span class="hero-sig-line"></span>
-        <span class="hero-sig-text">교정과 전문의 · 치의학박사 &nbsp; 손 창 한</span>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>손창한 | 교정과 전문의 · 서울대학교치과병원 임상강사</title>
+  <meta name="description" content="보건복지부 인증 교정과 전문의 손창한의 홈페이지. 진료실 질문에 답하는 상담일기와 진단·치료계획·결과를 기록한 교정증례를 소개합니다.">
+  <meta name="author" content="손창한">
+  <link rel="canonical" href="https://drsonchanghan.com/">
+  <meta property="og:type" content="website"><meta property="og:locale" content="ko_KR"><meta property="og:title" content="손창한 | 교정과 전문의"><meta property="og:description" content="상담일기와 교정증례로 기록하는 교정과 전문의 손창한의 홈페이지."><meta property="og:url" content="https://drsonchanghan.com/">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://drsonchanghan.com/#website","url":"https://drsonchanghan.com/","name":"손창한 | 교정과 전문의","inLanguage":"ko-KR","author":{"@id":"https://drsonchanghan.com/#author"}},{"@type":"Person","@id":"https://drsonchanghan.com/#author","name":"손창한","alternateName":"Son Chang Han","jobTitle":"치과교정과 전문의 · 서울대학교치과병원 임상강사","url":"https://drsonchanghan.com/#about","sameAs":["https://blog.naver.com/ckdtgks"],"worksFor":{"@type":"Organization","name":"서울대학교치과병원"},"knowsAbout":["치과교정학","성장기 교정","성인 교정","수술교정","교정 유지관리"]}]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--cream:#f7f5f0;--paper:#fffdfa;--ink:#1c1c1a;--navy:#29445a;--gold:#b39a70;--muted:#74736d;--line:rgba(28,28,26,.14);--dark:#1d211f}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}body{margin:0;background:var(--cream);color:var(--ink);font-family:'Noto Sans KR',sans-serif;font-size:16px;line-height:1.8;word-break:keep-all}a{color:inherit;text-decoration:none}button,a{touch-action:manipulation}a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+    .preview-note{background:var(--navy);color:#fff;text-align:center;padding:9px 20px;font-size:13px;letter-spacing:.03em}
+    .nav{height:74px;padding:0 clamp(24px,6vw,88px);display:flex;align-items:center;gap:40px;position:sticky;top:0;z-index:20;background:rgba(247,245,240,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .brand{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.14em;margin-right:auto}.nav-links{display:flex;gap:34px;font-size:14px;color:#53534f}.nav-links a:hover{color:var(--navy)}
+    .hero{min-height:calc(100svh - 108px);padding:clamp(50px,7vh,90px) clamp(24px,6vw,88px) 30px;display:flex;align-items:center}.hero-inner{width:100%;max-width:1370px;margin:auto;display:grid;grid-template-columns:minmax(0,1.04fr) minmax(330px,.96fr);align-items:center;gap:clamp(40px,7vw,110px)}
+    .eyebrow{font-family:'Cormorant Garamond',serif;text-transform:uppercase;letter-spacing:.2em;color:var(--navy);font-size:14px;line-height:1.65}.hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(42px,5vw,72px);font-weight:300;line-height:1.36;letter-spacing:-.045em;margin:34px 0 26px}.hero-copy{font-family:'Noto Serif KR',serif;color:var(--muted);font-size:clamp(17px,1.4vw,20px);font-weight:300;margin-bottom:44px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 23px;border:1px solid var(--ink);font-size:14px}.button.primary{background:var(--ink);color:#fff}.button:hover{border-color:var(--gold)}
+    .hero-visual{align-self:stretch;display:flex;align-items:end;justify-content:center;min-height:560px;overflow:hidden}.hero-visual img{width:min(100%,530px);height:min(75vh,750px);object-fit:contain;object-position:bottom center;mix-blend-mode:multiply}
+    .axis-intro{padding:110px clamp(24px,6vw,88px);background:var(--paper);border-top:1px solid var(--line)}.axis-inner{max-width:1180px;margin:auto}.section-kicker{font-family:'Cormorant Garamond',serif;text-transform:uppercase;letter-spacing:.19em;color:var(--gold);font-size:14px}.axis-intro h2,.section-title{font-family:'Noto Serif KR',serif;font-size:clamp(30px,4vw,48px);font-weight:300;line-height:1.5;letter-spacing:-.035em;margin:20px 0 55px}.axis-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.axis{padding:44px 45px 46px 0}.axis+ .axis{border-left:1px solid var(--line);padding-left:45px}.axis-num{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:14px;letter-spacing:.16em}.axis h3{font-family:'Noto Serif KR',serif;font-size:29px;font-weight:400;margin:17px 0 15px}.axis p{color:var(--muted);max-width:440px;margin:0 0 27px}.text-link{font-size:14px;color:var(--navy);border-bottom:1px solid var(--navy);padding-bottom:4px}
+    .journal{padding:120px clamp(24px,6vw,88px)}.section-inner{max-width:1180px;margin:auto}.section-head{display:grid;grid-template-columns:.75fr 1.25fr;gap:60px;align-items:end;margin-bottom:55px}.section-head .section-title{margin-bottom:0}.section-lead{color:var(--muted);margin:0 0 8px;max-width:590px}.article-list{border-top:1px solid var(--line)}.article-row{display:grid;grid-template-columns:82px minmax(0,1fr) 34px;gap:22px;align-items:center;padding:30px 8px;border-bottom:1px solid var(--line);transition:padding .2s,background .2s}.article-row:hover{padding-left:18px;background:rgba(255,255,255,.48)}.article-no{font-family:'Cormorant Garamond',serif;color:var(--gold);letter-spacing:.14em}.article-row h3{font-family:'Noto Serif KR',serif;font-size:clamp(19px,2vw,24px);font-weight:400;line-height:1.55;margin:0}.article-row p{color:var(--muted);font-size:14px;margin:6px 0 0}.arrow{font-family:serif;font-size:25px;color:var(--gold)}.all-link{display:flex;justify-content:flex-end;margin-top:34px}
+    .clinical{background:var(--dark);color:#f5f3ee;padding:120px clamp(24px,6vw,88px)}.clinical .section-kicker{color:#c4aa7b}.clinical .section-lead{color:rgba(255,255,255,.62)}.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.13)}.case-card{background:#242926}.case-image{position:relative;aspect-ratio:1.34;overflow:hidden;background:#303532}.case-image img{width:100%;height:100%;object-fit:cover;transition:transform .5s,opacity .35s}.case-card:hover img{transform:scale(1.025)}.before-after{cursor:pointer}.before-after img{position:absolute;inset:0}.before-after .after{opacity:0}.before-after.is-after .before{opacity:0}.before-after.is-after .after{opacity:1}.image-state,.compare-hint{position:absolute;z-index:2;background:rgba(17,20,18,.8);color:#fff;line-height:1;letter-spacing:.13em;font-size:12px;backdrop-filter:blur(5px)}.image-state{top:14px;left:14px;padding:9px 10px}.after-state{opacity:0}.before-after.is-after .before-state{opacity:0}.before-after.is-after .after-state{opacity:1}.compare-hint{right:14px;bottom:14px;padding:10px 12px;color:#e7d4ae}.mobile-hint{display:none}.case-info{display:block;padding:27px 25px 30px;min-height:194px;transition:background .2s}.case-info:hover{background:rgba(255,255,255,.035)}.case-type{font-family:'Cormorant Garamond',serif;color:#c4aa7b;letter-spacing:.15em;text-transform:uppercase;font-size:12px}.case-info h3{font-family:'Noto Serif KR',serif;font-size:20px;line-height:1.6;font-weight:400;margin:13px 0}.case-open{display:inline-block;color:rgba(255,255,255,.58);font-size:13px;border-bottom:1px solid rgba(255,255,255,.25)}.clinical .all-link .text-link{color:#d2bd94;border-color:#d2bd94}
+    .case-image-static{aspect-ratio:1/1;background:#f7f5f0}.case-image-static img{object-fit:contain}.case-card:hover .case-image-static img{transform:scale(1.015)}
+    @media(hover:hover) and (pointer:fine){.before-after:hover .before{opacity:0}.before-after:hover .after{opacity:1}.before-after:hover .before-state{opacity:0}.before-after:hover .after-state{opacity:1}}
+    .about{padding:120px clamp(24px,6vw,88px);background:var(--paper)}.about-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:.78fr 1.22fr;gap:clamp(48px,8vw,115px);align-items:center}.about-portrait{aspect-ratio:4/5;overflow:hidden;background:#d8e1e7}.about img{width:100%;height:100%;display:block;object-fit:cover;object-position:center center;transform:scale(1.7);transform-origin:53% 76%}.about h2{font-family:'Noto Serif KR',serif;font-size:clamp(30px,4vw,46px);font-weight:300;margin:20px 0 30px}.about-copy{font-family:'Noto Serif KR',serif;font-size:18px;line-height:2.1;margin-bottom:34px}.credentials{list-style:none;padding:22px 0 0;margin:0;border-top:1px solid var(--line);color:#62615c;font-size:15px}.credentials li{padding:4px 0}
+    footer{padding:38px clamp(24px,6vw,88px);background:#171a18;color:rgba(255,255,255,.58);display:flex;align-items:center;gap:30px;font-size:13px}.footer-brand{font-family:'Cormorant Garamond',serif;color:#fff;font-size:19px;letter-spacing:.13em;margin-right:auto}
+    @media(max-width:900px){.hero-inner{grid-template-columns:1fr .8fr;gap:20px}.hero-visual{min-height:470px}.section-head{grid-template-columns:1fr;gap:15px}.case-grid{grid-template-columns:1fr 1fr}.case-card:last-child{display:none}.about-inner{grid-template-columns:.9fr 1.1fr;gap:45px}}
+    @media(max-width:660px){.preview-note{font-size:12px}.nav{height:auto;min-height:72px;padding:12px 20px;flex-wrap:wrap;gap:8px 20px}.brand{width:100%;text-align:center;margin:0;font-size:20px}.nav-links{width:100%;justify-content:center;gap:24px;font-size:13px}.hero{padding:58px 24px 0;min-height:auto}.hero-inner{grid-template-columns:1fr}.hero h1{font-size:39px;margin-top:27px}.hero-copy{font-size:16px;margin-bottom:32px}.hero-visual{min-height:0;height:480px;margin-top:26px}.hero-visual img{height:100%;width:100%}.axis-intro,.journal,.clinical,.about{padding:80px 24px}.axis-intro h2,.section-title{margin-bottom:36px}.axis-grid{grid-template-columns:1fr}.axis{padding:34px 0}.axis+.axis{border-left:0;border-top:1px solid var(--line);padding:34px 0}.article-row{grid-template-columns:44px minmax(0,1fr) 20px;gap:10px;padding:25px 0}.article-row p{display:none}.case-grid{grid-template-columns:1fr}.case-card:last-child{display:block}.about-inner{grid-template-columns:1fr}.about-portrait{max-height:540px}.about img{transform:scale(1.75);transform-origin:53% 75%}.about-copy{font-size:17px}.desktop-hint{display:none}.mobile-hint{display:inline}.compare-hint{font-size:12px;padding:11px 13px}footer{flex-wrap:wrap}.footer-brand{width:100%}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="주요 메뉴">
+    <a class="brand" href="#top">Dr. Son Chang Han</a>
+    <div class="nav-links"><a href="#about">소개</a><a href="#consultation">상담일기</a><a href="#clinical">교정증례</a></div>
+  </nav>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Orthodontist<br>Seoul National University Dental Hospital</p>
+          <h1>좋은 교정은<br>시작이 다릅니다.</h1>
+          <p class="hero-copy">서두르지 않고, 충분히 설명하며<br>함께 답을 찾아갑니다.</p>
+          <div class="hero-actions"><a class="button primary" href="#consultation">상담일기</a><a class="button" href="#clinical">교정증례</a></div>
+        </div>
+        <div class="hero-visual"><img src="images/hero-photo.jpg" alt="교정과 전문의 손창한"></div>
       </div>
-    </div>
-  </div>
-  <div class="hero-photo-wrap">
-    <img src="images/hero-photo.jpg" alt="교정과 전문의 손창한">
-  </div>
-</div></section>
-<!-- § 2. PHILOSOPHY STATEMENT -->
-<section id="philosophy">
-  <p class="phil-label reveal">Philosophy</p>
-  <h2 class="phil-heading reveal d1">
-    교정에는 <em>하나의 정답</em>이 없습니다.
-  </h2>
-  <div class="phil-body reveal d2">
-    <p>비슷한 치열이라도 교정을 고민하는 이유는 저마다 다릅니다.</p>
-    <p>먼저 <em>당신을 이해하고</em>, 그 이해를 바탕으로 진단합니다.</p>
-    <p>그렇게 당신에게 <em>가장 적합한 답</em>을 함께 찾아갑니다.</p>
-  </div>
-</section>
+    </section>
 
-<!-- § 3. VALUES -->
-<section id="values">
-  <div class="values-inner">
-    <p class="values-label reveal">Values</p>
-
-    <div class="value-item reveal">
-      <span class="value-num">01</span>
-      <div class="value-content">
-        <h3 class="value-title">모든 판단에는 이유가 있습니다.</h3>
-        <div class="value-body">
-          <p>발치와 비발치, 장치의 선택, 치료의 방향까지.</p>
-          <p>모든 판단은 충분한 근거 위에서 이루어집니다.</p>
-          <p>그 이유를 이해할 수 있도록 설명합니다.</p>
+    <section class="about" id="about">
+      <div class="about-inner">
+        <div class="about-portrait"><img src="images/profile-outdoor.jpg" alt="서울대학교병원 대한의원 앞의 교정과 전문의 손창한"></div>
+        <div><p class="section-kicker">About the doctor</p><h2>교정과 전문의 손창한입니다.</h2><p class="about-copy">치료를 시작할 때는 충분히 이해하고,<br>치료를 마칠 때는 서로 납득할 수 있는 것.<br><br>그리고 몇 년 뒤 정기검진에서<br>웃으며 다시 만날 수 있는 것.<br><br>저에게는, 그것이 좋은 교정입니다.</p>
+          <ul class="credentials"><li>보건복지부 인증 치과교정과 전문의</li><li>현 서울대학교치과병원 치과교정과 임상강사</li><li>서울대학교치과병원 인턴 · 치과교정과 전공의 수료</li><li>서울대학교 치의학대학원 치과교정학 박사</li></ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="value-item reveal d1">
-      <span class="value-num">02</span>
-      <div class="value-content">
-        <h3 class="value-title">치료는 함께 결정합니다.</h3>
-        <div class="value-body">
-          <p>치료는 의사가 혼자 결정하는 것이 아닙니다.</p>
-          <p>충분한 설명을 바탕으로 치료의 방향을 함께 고민합니다.</p>
-          <p>환자가 무엇을 궁금해하는지 놓치지 않습니다.</p>
+    <section class="axis-intro">
+      <div class="axis-inner">
+        <p class="section-kicker">Two records</p>
+        <h2>교정에 관한 생각과 치료 과정을<br>두 가지 기록으로 남깁니다.</h2>
+        <div class="axis-grid">
+          <article class="axis"><span class="axis-num">01</span><h3>상담일기</h3><p>진료실에서 자주 만나는 질문에 답합니다. 치료의 원리와 판단 기준을 교정과 전문의의 시선으로 설명합니다.</p><a class="text-link" href="#consultation">상담일기 보기 →</a></article>
+          <article class="axis"><span class="axis-num">02</span><h3>교정증례</h3><p>환자의 고민에서 출발해 진단, 치료계획, 진행 과정과 결과까지 기록합니다. 증례마다 선택의 이유를 함께 담습니다.</p><a class="text-link" href="#clinical">교정증례 보기 →</a></article>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="value-item reveal d2">
-      <span class="value-num">03</span>
-      <div class="value-content">
-        <h3 class="value-title">장치를 떼는 날이 끝이 아닙니다.</h3>
-        <div class="value-body">
-          <p>장치를 제거하는 날은 치료의 끝이 아닙니다.</p>
-          <p>유지와 변화까지 함께 살핍니다.</p>
-          <p>교정의 끝까지 함께합니다.</p>
+    <section class="journal" id="consultation">
+      <div class="section-inner">
+        <div class="section-head">
+          <div><p class="section-kicker">Consultation Journal</p><h2 class="section-title">상담일기</h2></div>
+          <p class="section-lead">상담실에서 실제로 자주 듣는 질문을 중심으로 씁니다. 먼저 짧게 답하고, 그 이유를 차근히 설명합니다.</p>
         </div>
+        <!-- CONSULTATION:START --><div class="article-list"><a class="article-row" href="journal/224403787474.html"><span class="article-no">01</span><div><h3>양악수술, 위험하지 않나요? (수술교정 Q&amp;A)</h3><p>양악수술은 전신마취와 수술을 동반하므로 위험이 전혀 없지는 않습니다. 다만 수술 전 평가, 마취·수술 중 감시와 수술 후 관리를 체계적으로 시행하면 위험을 줄일 수 있으며 개인별 위험도는 건강 상태와 수술 범위에 따라 달라집니다.</p></div><span class="arrow">↗</span></a><a class="article-row" href="journal/224397969906.html"><span class="article-no">02</span><div><h3>양악수술 후 플레이트, 꼭 제거해야 할까요? (제거 시기, MRI·CT 촬영 시 영향)</h3><p>양악수술 후 티타늄 플레이트를 모든 환자가 반드시 제거해야 하는 것은 아닙니다. 이물감·염증·노출 또는 영상검사 방해처럼 제거를 고려할 이유가 있을 때 수술 부위와 시기를 함께 평가합니다.</p></div><span class="arrow">↗</span></a><a class="article-row" href="journal/224383899601.html"><span class="article-no">03</span><div><h3>어린이집 다니는 우리 아이 치실을 해야 할까요? | 23년생, 24년생 딸 연년생 아이들에게 매일 치실을 해주는 이유 (치실 언제부터 해야할까요?)</h3><p>인접한 유치 사이가 서로 맞닿기 시작하면 칫솔만으로 닦기 어려운 면이 생기므로 치실 사용을 고려할 수 있습니다. 어린아이는 보호자가 직접 도와 안전하게 사용하는 것이 중요합니다.</p></div><span class="arrow">↗</span></a><a class="article-row" href="journal/224366709586.html"><span class="article-no">04</span><div><h3>교정하면 치아 뿌리가 짧아진다던데, 정말 괜찮을까요? (교정 치 치근 흡수, 교정 부작용)</h3><p>교정치료 중 치근흡수는 발생할 수 있지만 대부분은 임상적으로 큰 문제가 없는 범위에 머뭅니다. 치료 전 위험요인을 확인하고 정기 방사선검사로 변화량을 관찰하며 필요하면 교정력을 조절해야 합니다.</p></div><span class="arrow">↗</span></a></div><!-- CONSULTATION:END -->
+        <div class="all-link"><a class="text-link" href="consultation/">상담일기 전체 보기 →</a></div>
       </div>
-    </div>
+    </section>
 
-  </div>
-</section>
+    <section class="clinical" id="clinical">
+      <div class="section-inner">
+        <div class="section-head">
+          <div><p class="section-kicker">Clinical Cases</p><h2 class="section-title">교정증례</h2></div>
+          <p class="section-lead">결과만 보여주기보다 어떤 문제를 진단했고, 왜 그 치료를 선택했는지 함께 기록합니다.</p>
+        </div>
+        <!-- CASES:START --><div class="case-grid"><article class="case-card"><div class="case-image case-image-static"><img src="images/case-thumbnails/224379790553.webp" alt="&quot;양악수술 교정, 얼마나 걸릴까요?&quot; 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례 치료 전후 썸네일" loading="lazy" decoding="async"></div><a class="case-info" href="journal/224379790553.html"><span class="case-type">수술교정 · 골격성 3급</span><h3>주걱턱 수술교정 · 14개월</h3><span class="case-open">증례 보기 ↗</span></a></article><article class="case-card"><div class="case-image case-image-static"><img src="images/case-thumbnails/224389591858.webp" alt="벌어진 앞니와 맞지 않는 중심선, 라미네이트 대신 교정을 선택한 이유 (치료 기간 1년 3개월) 치료 전후 썸네일" loading="lazy" decoding="async"></div><a class="case-info" href="journal/224389591858.html"><span class="case-type">성인 · 비발치</span><h3>앞니 공간과 정중선 교정</h3><span class="case-open">증례 보기 ↗</span></a></article><article class="case-card"><div class="case-image case-image-static"><img src="images/case-thumbnails/224367766837.webp" alt="&quot;영구치가 안 나와요&quot; - 가로로 매복된 치아 끌어내리는 견인 교정 치료 (매복 치아 견인 교정 치료) 치료 전후 썸네일" loading="lazy" decoding="async"></div><a class="case-info" href="journal/224367766837.html"><span class="case-type">성장기 · 매복치</span><h3>수평 매복 영구치 견인</h3><span class="case-open">증례 보기 ↗</span></a></article></div><!-- CASES:END -->
+        <div class="all-link"><a class="text-link" href="cases/">교정증례 전체 보기 →</a></div>
+      </div>
+    </section>
 
-<section id="about"><div class="about-inner"><img src="images/profile-outdoor.jpg" alt="서울대학교병원 대한의원 앞의 교정과 전문의 손창한" loading="lazy"><div><p class="phil-label">About the doctor</p><h2>손창한입니다.</h2><p>치료를 시작할 때는 충분히 이해하고,<br>치료를 마칠 때는 서로 납득할 수 있는 것.</p><p>그리고 몇 년 뒤 정기검진에서<br>웃으며 다시 만날 수 있는 것.</p><p>저에게는, 그것이 좋은 교정입니다.</p><ul class="credentials"><li>보건복지부 인증 치과교정과 전문의</li><li>현 서울대학교치과병원 치과교정과 임상강사 (Fellow)</li><li>서울대학교치과병원 인턴 · 치과교정과 전공의 수료</li><li>서울대학교 치의학대학원 수석졸업 (총장상)</li><li>서울대학교 치의학대학원 치과교정학 박사</li><li>대한치과교정학회 교육위원회 위원</li><li>대한치과교정학회 임상저널편집위원회 위원</li></ul></div></div></section><!-- § 4. JOURNAL -->
-<section id="journal">
-  <div class="journal-inner">
-    <div class="section-header reveal">
-      <h2 class="section-title">교정 상담일지</h2>
-      <span class="section-label-sm">Consultation Journal</span>
-    </div>
-    <div class="case-grid">
-
-      <a href="cases/diary-10-fixed-retainer.html" class="case-card reveal">
-        <div class="case-thumb"><span class="case-tag">상담일지</span><img src="images/diary10-img1.jpg" alt=""></div>
-        <div class="case-body"><h3>고정식 유지장치, 평생 해야 하나요?</h3><p>붙어 있어도 정기 검진이 필요한 이유를 정리했습니다.</p><span class="case-arrow">→</span></div>
-      </a>
-
-      <a href="cases/diary-9-senior-orthodontics.html" class="case-card reveal d1">
-        <div class="case-thumb"><span class="case-tag">상담일지</span><img src="images/diary9-img2.jpg" alt=""></div>
-        <div class="case-body"><h3>60대 교정 치료 가능할까요?</h3><p>나이 들면 앞니가 틀어지는 이유와 시니어 교정의 가능성을 정리했습니다.</p><span class="case-arrow">→</span></div>
-      </a>
-
-      <a href="cases/diary-8-military-checkup.html" class="case-card reveal d2">
-        <div class="case-thumb"><span class="case-tag">상담일지</span><img src="images/diary8-img1.jpg" alt=""></div>
-        <div class="case-body"><h3>부정교합으로 공익될 수 있나요?</h3><p>병역판정 신체검사 별표 3 원문을 바탕으로 치과 기준을 정리했습니다.</p><span class="case-arrow">→</span></div>
-      </a>
-
-      <a href="cases/diary-7-retainer-protocol.html" class="case-card reveal">
-        <div class="case-thumb"><span class="case-tag">상담일지</span><img src="images/diary7-img1.jpg" alt=""></div>
-        <div class="case-body"><h3>유지장치는 언제까지 끼나요?</h3><p>가철식 유지장치 착용 프로토콜을 단계별로 정리했습니다.</p><span class="case-arrow">→</span></div>
-      </a>
-
-      <a href="cases/diary-6-communication.html" class="case-card reveal d1">
-        <div class="case-thumb"><span class="case-tag">상담일지</span><img src="images/diary6-img1.png" alt=""></div>
-        <div class="case-body"><h3>소통이 치료입니다</h3><p>다른 병원에서 치료 중인 환자분을 만났을 때 느낀 점들을 기록했습니다.</p><span class="case-arrow">→</span></div>
-      </a>
-
-      <a href="cases/diary-5-canine-substitution.html" class="case-card reveal d2">
-        <div class="case-thumb"><span class="case-tag">상담일지</span><img src="images/diary5-img1.jpg" alt=""></div>
-        <div class="case-body"><h3>앞니가 없는 초등학생을 만났습니다</h3><p>측절치 결손 시 송곳니 대치로 치료하는 방법을 소개합니다.</p><span class="case-arrow">→</span></div>
-      </a>
-
-      <a href="cases/diary-4-tmj-orthodontics.html" class="case-card reveal">
-        <div class="case-thumb"><span class="case-tag">상담일지</span><img src="images/diary4-img1.jpg" alt=""></div>
-        <div class="case-body"><h3>턱관절이 아프시진 않으신가요?</h3><p>턱관절 질환이 있을 때 교정치료를 바로 시작하면 안 되는 이유를 정리했습니다.</p><span class="case-arrow">→</span></div>
-      </a>
-
-      <a href="cases/diary-3-orthognathic-surgery.html" class="case-card reveal d1">
-        <div class="case-thumb"><span class="case-tag">상담일지</span><img src="images/diary3-img1.jpg" alt=""></div>
-        <div class="case-body"><h3>수술교정, 어떻게 진행되는 건가요?</h3><p>술전 교정-악교정 수술-술후 교정 3단계 과정을 정리했습니다.</p><span class="case-arrow">→</span></div>
-      </a>
-
-      <a href="cases/diary-2-insurance-ortho.html" class="case-card reveal d2">
-        <div class="case-thumb"><span class="case-tag">상담일지</span><img src="images/diary2-img1.jpg" alt=""></div>
-        <div class="case-body"><h3>교정 치료도 건강보험이 될 때가 있습니다</h3><p>급여 교정 치료 대상 질환과 지원 범위를 정리했습니다.</p><span class="case-arrow">→</span></div>
-      </a>
-
-<a href="cases/diary-1-implant-vs-ortho.html" class="case-card"><div class="case-body"><h3>임플란트와 교정, 어떤 선택이 좋을까요?</h3><span class="case-arrow">→</span></div></a><a href="cases/impacted-molar.html" class="case-card"><div class="case-body"><h3>매복된 어금니에 대한 상담 기록</h3><span class="case-arrow">→</span></div></a>    </div>
-  </div>
-</section>
-
-<!-- RSS:START --><section id="blog-updates" style="padding:64px 6vw"><div class="journal-inner"><div class="section-header"><h2>새로운 기록</h2><a href="/journal/">전체 기록 보기 →</a></div><div class="case-grid"><a class="case-card" href="/journal/224403787474.html"><div class="case-body"><p class="meta">2026-09-07</p><h3>양악수술, 위험하지 않나요? (수술교정 Q&amp;A)</h3><span>글 읽기 →</span></div></a><a class="case-card" href="/journal/224397969906.html"><div class="case-body"><p class="meta">2026-09-02</p><h3>양악수술 후 플레이트, 꼭 제거해야 할까요? (제거 시기, MRI·CT 촬영 시 영향)</h3><span>글 읽기 →</span></div></a><a class="case-card" href="/journal/224389591858.html"><div class="case-body"><p class="meta">2026-08-25</p><h3>벌어진 앞니와 맞지 않는 중심선, 라미네이트 대신 교정을 선택한 이유 (치료 기간 1년 3개월)</h3><span>글 읽기 →</span></div></a><a class="case-card" href="/journal/224383899601.html"><div class="case-body"><p class="meta">2026-08-20</p><h3>어린이집 다니는 우리 아이 치실을 해야 할까요? | 23년생, 24년생 딸 연년생 아이들에게 매일 치실을 해주는 이유 (치실 언제부터 해야할까요?)</h3><span>글 읽기 →</span></div></a><a class="case-card" href="/journal/224379790553.html"><div class="case-body"><p class="meta">2026-08-15</p><h3>&quot;양악수술 교정, 얼마나 걸릴까요?&quot; 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례</h3><span>글 읽기 →</span></div></a><a class="case-card" href="/journal/224373757419.html"><div class="case-body"><p class="meta">2026-08-10</p><h3>어느덧 선선해진 날씨와 잡념</h3><span>글 읽기 →</span></div></a></div></div></section><!-- RSS:END -->
-</main><!-- FOOTER -->
-<footer>
-  <span class="footer-logo">Son Chang Han</span>
-  <ul class="footer-links">
-    <li><a href="https://blog.naver.com/ckdtgks" target="_blank" rel="noopener">Blog</a></li>
-    <li><a href="#hero">Top</a></li>
-  </ul>
-  <span class="footer-copy">© 2026 Son Chang Han · Orthodontist</span>
-</footer>
-
-<script>
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  });
-});
-
-// Reveal on scroll
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-
+  </main>
+  <footer><span class="footer-brand">Dr. Son Chang Han</span><span>Blog</span><span>© 2026 Son Chang Han</span></footer>
+  <script>
+    document.querySelectorAll('[data-before-after]').forEach((comparison) => {
+      const toggle = () => {
+        const showingAfter = comparison.classList.toggle('is-after');
+        comparison.setAttribute('aria-pressed', String(showingAfter));
+      };
+      comparison.addEventListener('click', toggle);
+      comparison.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggle();
+        }
+      });
+    });
+  </script>
 </body>
 </html>

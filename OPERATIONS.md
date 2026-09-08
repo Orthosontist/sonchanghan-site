@@ -13,10 +13,10 @@ The existing production site is `https://drsonchanghan.com`, backed by the GitHu
 - `SKIP` preserves the previously withheld resident-seminar post and excludes the duplicate biography and empty introductory post.
 - Already imported posts stay in the archive after they leave the RSS feed. Edits are checked while posts remain in the feed. Deletions on Naver do not automatically delete the local archive.
 - A failed body fetch or parser check preserves the last saved page and fails the job before the commit step. Check the Actions log if updates stop.
-- Home recent articles, `/journal/`, and `sitemap.xml` update together. A changed commit triggers the existing Netlify Git deployment.
+- `/consultation/`, `/cases/`, article metadata, and `sitemap.xml` update together. Personal posts are excluded from navigation and indexing. A changed commit triggers the existing Netlify Git deployment.
 
 ## Search
 
-Each indexed article has an HTML body, its own canonical URL, author link and BlogPosting data. Newly imported posts include their original publication date and source link. These enable discovery but do not guarantee indexing or AI citations.
+Each indexed article has an HTML body, its own canonical URL, answer-first summary, author credentials, publication/update dates, source link, image metadata and category-aware structured data. Existing URLs are preserved. These enable discovery but do not guarantee indexing or AI citations.
 
 After deployment, resubmit `https://drsonchanghan.com/sitemap.xml` in the already verified Google Search Console property. Reconfirm the physician's affiliation when the fellowship ends; no clinic opening claims are currently promoted on the homepage.
