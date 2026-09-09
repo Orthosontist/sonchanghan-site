@@ -10,6 +10,7 @@ import urllib.request, xml.etree.ElementTree as ET, re, html, json
 from bs4 import BeautifulSoup
 ROOT=Path(__file__).resolve().parents[1]
 CURATED=json.loads((ROOT/'scripts/consultation_copy.json').read_text())
+CURATED_CASES=json.loads((ROOT/'scripts/case_copy.json').read_text())
 BASE='https://drsonchanghan.com'
 LEGACY={'224317625460':'diary-10-fixed-retainer','224303524267':'diary-9-senior-orthodontics','224298737298':'impacted-molar','224298037342':'diary-8-military-checkup','224291408505':'diary-7-retainer-protocol','224289274170':'diary-6-communication','224279052575':'diary-5-canine-substitution','224266423268':'diary-4-tmj-orthodontics','224254639310':'diary-3-orthognathic-surgery','224244031894':'diary-2-insurance-ortho','224238023886':'diary-1-implant-vs-ortho'}
 # Previously held back article, duplicate biography, and empty introductory post.
@@ -65,7 +66,7 @@ def import_item(item):
     title=CURATED.get(id,{}).get('title',title_clean(item.findtext('title') or '기록'));date=parsedate_to_datetime(item.findtext('pubDate')).isoformat();source='https://blog.naver.com/ckdtgks/'+id
     path='cases/'+LEGACY[id]+'.html' if id in LEGACY else 'journal/'+id+'.html'
     row={'id':id,'title':title,'date':date,'source':source,'path':path}
-    if id in LEGACY or (id in CURATED and (ROOT/path).exists()):return row
+    if id in LEGACY or ((id in CURATED or id in CURATED_CASES) and (ROOT/path).exists()):return row
     body,text=sanitize(fetch('https://blog.naver.com/PostView.naver?blogId=ckdtgks&logNo='+id))
     row['description']=text[:160]
     schema={'@context':'https://schema.org','@type':'BlogPosting','headline':title,'description':row['description'],'datePublished':date,'inLanguage':'ko-KR','url':BASE+'/'+path,'mainEntityOfPage':BASE+'/'+path,'isBasedOn':source,'author':{'@type':'Person','@id':BASE+'/#author','name':'손창한','url':BASE+'/#about'}}

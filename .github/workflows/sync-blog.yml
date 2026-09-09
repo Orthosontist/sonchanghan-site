@@ -9,6 +9,9 @@ on:
       - scripts/rebuild_site.py
       - scripts/site_pages.py
       - scripts/consultation_copy.json
+      - scripts/case_copy.json
+      - scripts/case_media.json
+      - scripts/case_content.py
       - scripts/localize_case_images.py
       - journal/ai-readable.css
       - .github/workflows/sync-blog.yml

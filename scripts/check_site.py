@@ -29,6 +29,13 @@ for name in paths:
 for row in rows:
     soup=BeautifulSoup((ROOT/row['path']).read_text(),'html.parser');body=soup.select_one('.body')
     if row['category']=='case':
+        if len(body.get_text())>700:errors.append((row['id'],'long case copy'))
+        if row['id']=='224298737298':
+            sources=[img['src'] for img in body.select('img')]
+            for original in ['01-cover.png','02-pre-treatment.png','03-diagnosis-plan.png','04-treatment-course.png','09-post-treatment.png','11-summary.png']:
+                if any(src.endswith('/'+original) for src in sources):errors.append((row['id'],'uncropped screenshot '+original))
+            sequence=[img['src'].rsplit('/',1)[-1] for img in body.select('.clinical-sequence-grid img')]
+            if sequence!=['05-progress-2023-07.png','06-progress-2023-10.png','07-progress-2024-01.png','08-progress-2024-10.png']:errors.append((row['id'],'clinical sequence order'))
         for image in body.select('img'):
             if image['src'].startswith('http'):errors.append((row['id'],'external image'))
             if not image.get('alt'):errors.append((row['id'],'missing alt'))
