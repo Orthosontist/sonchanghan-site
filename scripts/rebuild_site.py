@@ -38,6 +38,8 @@ SUMMARY={
 '224367766837':'가로로 매복된 영구치의 위치와 맹출 가능성을 평가한 뒤 교정적 견인을 시행한 성장기 증례입니다. 진단부터 견인 과정과 최종 배열까지 기록했습니다.',
 '224298737298':'매복된 아래 제2대구치의 자연 맹출을 관찰하면서 위쪽 과맹출 치아를 함께 함입한 부분교정 증례입니다.'}
 
+IMPACTED_MOLAR_MEDIA='/images/cases/224298737298/'
+
 def category(row):
     title=row['title']; post_id=row['id']
     if post_id in PERSONAL or re.search(r'\[(?:근황|독서)\]|잡념|주절주절|전쟁',title): return 'exclude'
@@ -130,8 +132,52 @@ def assets(body,path):
         if url.startswith('http') and 'naver.com' not in host and 'drsonchanghan.com' not in host and url not in citations:citations.append(url)
     return image,citations[:8]
 
+def inject_case_media(row,body_node):
+    """Place the manually curated clinical series without Naver layout markup."""
+    for existing in body_node.select('.case-media'):
+        existing.decompose()
+    if row['id']!='224298737298':return
+
+    def fragment(markup):
+        return BeautifulSoup(markup,'html.parser').find()
+    def figure(filename,alt,caption='',extra=''):
+        label=('<figcaption>'+E(caption)+'</figcaption>') if caption else ''
+        return '<figure class="case-media '+extra+'"><img src="'+IMPACTED_MOLAR_MEDIA+filename+'" alt="'+E(alt)+'" loading="lazy" decoding="async">'+label+'</figure>'
+
+    paragraphs=body_node.find_all('p',recursive=False)
+    if len(paragraphs)<7:return
+    paragraphs[0].insert_before(fragment(figure(
+        '01-cover.png','매복 어금니 자연 맹출 치료 증례의 치료 전후 방사선사진','증례 개요')))
+    paragraphs[1].insert_after(fragment(figure(
+        '02-pre-treatment.png','치료 전 구강 내 사진과 매복된 아래 왼쪽 제2대구치','치료 전 상태')))
+    paragraphs[3].insert_after(fragment(figure(
+        '03-diagnosis-plan.png','매복 제2대구치의 CT 영상과 부분교정 치료계획','진단과 치료계획')))
+    paragraphs[4].insert_after(fragment(figure(
+        '04-treatment-course.png','상악 제2대구치 함입 장치와 하악 제2대구치 맹출 치료 과정','치료 장치와 진행 과정')))
+
+    sequence='''<section class="case-media clinical-sequence" aria-labelledby="eruption-progress-title">
+      <h2 id="eruption-progress-title">자연 맹출 경과</h2>
+      <p>같은 부위를 촬영한 방사선사진을 날짜 순서대로 배열했습니다.</p>
+      <div class="clinical-sequence-grid">
+        <figure><img src="'''+IMPACTED_MOLAR_MEDIA+'''05-progress-2023-07.png" alt="2023년 7월 매복된 아래 왼쪽 제2대구치 방사선사진" loading="lazy" decoding="async"><figcaption>2023.07</figcaption></figure>
+        <figure><img src="'''+IMPACTED_MOLAR_MEDIA+'''06-progress-2023-10.png" alt="2023년 10월 아래 왼쪽 제2대구치 자연 맹출 경과 방사선사진" loading="lazy" decoding="async"><figcaption>2023.10</figcaption></figure>
+        <figure><img src="'''+IMPACTED_MOLAR_MEDIA+'''07-progress-2024-01.png" alt="2024년 1월 아래 왼쪽 제2대구치 자연 맹출 경과 방사선사진" loading="lazy" decoding="async"><figcaption>2024.01</figcaption></figure>
+        <figure><img src="'''+IMPACTED_MOLAR_MEDIA+'''08-progress-2024-10.png" alt="2024년 10월 아래 왼쪽 제2대구치 자연 맹출 경과 방사선사진" loading="lazy" decoding="async"><figcaption>2024.10</figcaption></figure>
+      </div>
+    </section>'''
+    paragraphs[5].insert_after(fragment(sequence))
+
+    results='''<section class="case-media case-results" aria-labelledby="case-results-title">
+      <h2 id="case-results-title">치료 후와 전후 비교</h2>
+      <figure><img src="'''+IMPACTED_MOLAR_MEDIA+'''09-post-treatment.png" alt="매복 어금니 자연 맹출과 위쪽 어금니 함입 후 구강 내 사진" loading="lazy" decoding="async"><figcaption>치료 후 구강 내 상태</figcaption></figure>
+      <figure><img src="'''+IMPACTED_MOLAR_MEDIA+'''10-before-after.png" alt="매복된 아래 왼쪽 제2대구치의 치료 전후 방사선사진 비교" loading="lazy" decoding="async"><figcaption>치료 전후 방사선사진 비교</figcaption></figure>
+      <figure><img src="'''+IMPACTED_MOLAR_MEDIA+'''11-summary.png" alt="매복 어금니 자연 맹출과 위쪽 어금니 함입 치료 결과 요약" loading="lazy" decoding="async"><figcaption>치료 결과 요약</figcaption></figure>
+    </section>'''
+    paragraphs[6].insert_after(fragment(results))
+
 def schema(row,body):
     label='교정증례' if row['category']=='case' else '상담일기'; url=BASE+'/'+row['path']; image,citations=assets(body,row['path'])
+    if row['id']=='224298737298':image=BASE+IMPACTED_MOLAR_MEDIA+'01-cover.png'
     data={'@context':'https://schema.org','@type':'BlogPosting','headline':row['title'],'description':row['summary'],'datePublished':row['date'],'dateModified':row['updated'],'inLanguage':'ko-KR','url':url,'mainEntityOfPage':url,'articleSection':label,'isBasedOn':row['source'],'about':{'@type':'MedicalSpecialty','name':'Orthodontics'},'author':{'@type':'Person','@id':BASE+'/#author','name':'손창한','alternateName':'Son Chang Han','jobTitle':'치과교정과 전문의 · 서울대학교치과병원 임상강사','url':BASE+'/#about','sameAs':['https://blog.naver.com/ckdtgks']},'publisher':{'@id':BASE+'/#author'}}
     if image:data['image']=image
     if citations:data['citation']=citations
@@ -150,9 +196,16 @@ def enhance_legacy(row,text):
     if '/journal/ai-readable.css' not in text:text=text.replace('</head>','<link rel="stylesheet" href="/journal/ai-readable.css"></head>')
     parsed=BeautifulSoup(text,'html.parser'); body_node=parsed.select_one('.body')
     if body_node:
+        for existing in body_node.select('.case-media'):
+            existing.decompose()
         cleaned=BeautifulSoup(clean_article_body(row,body_node.decode_contents()),'html.parser')
         body_node.clear()
         for node in list(cleaned.contents):body_node.append(node)
+        inject_case_media(row,body_node)
+        if row['id']=='224298737298' and not parsed.select_one('meta[property="og:image"]'):
+            og_image=parsed.new_tag('meta')
+            og_image['property']='og:image'; og_image['content']=BASE+IMPACTED_MOLAR_MEDIA+'01-cover.png'
+            parsed.head.append(og_image)
         text=str(parsed)
     if 'class="answer-box"' not in text:
         box='<aside class="answer-box"><span>'+('증례 요약' if row['category']=='case' else '핵심 답변')+'</span><p>'+E(row['summary'])+'</p></aside>'
