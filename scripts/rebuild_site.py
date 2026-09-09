@@ -5,8 +5,8 @@ pages do not lose search equity.
 """
 from datetime import date
 from pathlib import Path
-from urllib.parse import urljoin, urlsplit
-import html, json, re
+from urllib.parse import unquote, urljoin, urlsplit
+import html, json, re, unicodedata
 from bs4 import BeautifulSoup
 from site_pages import build as build_four_pages
 
@@ -55,6 +55,73 @@ def source_body(text):
     match=re.search(r'<div class="body">(.*?)</div>\s*(?:<section|<aside|<footer)',text,re.S)
     return match.group(1) if match else ''
 
+def clean_text(value):
+    value=unicodedata.normalize('NFKC',value).replace('\u200b',' ')
+    value=re.sub(r'[\U0001F000-\U0001FAFF\u2600-\u27BF]','',value)
+    value=re.sub(r'\s+',' ',value).strip()
+    value=re.sub(r'\s*\^\^+|\s*ㅎㅎ+|\s*ㅋㅋ+|\s*:\)+','',value)
+    value=value.replace('➕','+').replace('✅','').replace('📌','').strip()
+    value=value.replace('있죠.','있습니다.').replace('생기니까요.','생길 수 있습니다.').replace('것이죠.','것입니다.').replace('있으시구요.','있습니다.')
+    return value
+
+def clean_article_body(row,body):
+    """Turn Naver editor markup into restrained, semantic article HTML.
+
+    Medical wording is retained. Only layout fragments, decorative media and
+    conversational greetings/sign-offs are removed.
+    """
+    soup=BeautifulSoup(body,'html.parser'); out=[]; pending=[]
+    headings={'치료 전','치료 계획','치료 과정','치료 후','치료를 마무리하며','마무리하며','결론','정리','주의사항'}
+    skip_patterns=(r'^안녕하세요[,.]?$',r'^안녕하세요.*손창한.*(?:입니다|입니다[.]?)',r'^(?:서울대학교 )?치과교정과? 전문의.*(?:입니다|입니다[.]?)$',r'^이상 .*손창한.*(?:입니다|이었습니다)',r'^m\.blog\.naver\.com$',r'^출처\s*:',r'^📖')
+    def flush():
+        nonlocal pending
+        if not pending:return
+        text=' '.join(pending).strip()
+        if text and text[-1] not in '.?!다요죠':text+='.'
+        out.append('<p>'+E(text)+'</p>');pending=[]
+    def top_level(tag):
+        return not any(parent.name in {'p','ol','ul','table'} or 'medical-note' in parent.get('class',[]) for parent in tag.parents if parent is not soup)
+    def keep_image(tag):
+        if row['category']!='case':return False
+        src=unquote(tag.get('src','')).lower(); alt=clean_text(tag.get('alt','')).lower()
+        reject=('dthumb','thumbnail','썸네일','해밀턴','호날두','생성된_이미지','캐릭터','일러스트')
+        return bool(src) and not any(word in src or word in alt for word in reject)
+    for tag in soup.find_all(['h2','h3','p','img','ol','ul','table']):
+        if not top_level(tag):continue
+        if tag.name in {'h2','h3'}:
+            flush();text=clean_text(tag.get_text(' ',strip=True))
+            if text and text!='60대 교정 치료 가능할까요? 60대 앞니 교정 늦은 걸까요?':out.append('<h2>'+E(text.rstrip('.'))+'</h2>')
+        elif tag.name=='p':
+            text=clean_text(tag.get_text(' ',strip=True))
+            if not text or any(re.search(pattern,text,re.I) for pattern in skip_patterns):continue
+            if '안녕하세요' in text and '손창한' in text:continue
+            if '손창한입니다' in text[:80] or '손창한 입니다' in text[:80]:continue
+            editorial_noise=('GOATs','포스팅해보려고','함께 읽','저번 제 블로그 글','m.blog.naver.com','바쁘디 바쁜','60대 교정 치료 가능할까요? 60대 앞니 교정 늦은 걸까요?')
+            if any(fragment in text for fragment in editorial_noise):continue
+            if text=='믿거나 말거나지만' or text.startswith(('옛말에 ','맞습니다. 오늘은','이 글을 읽으신 분들께서는','모쪼록 ')) or text.endswith('...'):continue
+            is_heading=text in headings or (len(text)<=34 and (text.endswith('?') or re.match(r'^(?:첫|두|세|네) 번째[, ]',text)))
+            if is_heading:
+                flush();out.append('<h2>'+E(text.rstrip('.'))+'</h2>');continue
+            pending.append(text)
+            if len(' '.join(pending))>=190 or text.endswith(('.', '?', '!', '다.', '요.', '죠.')):flush()
+        elif tag.name=='img':
+            if keep_image(tag):
+                flush();src=E(tag.get('src',''));alt=E(clean_text(tag.get('alt','')) or row['title']+' 임상 사진')
+                out.append('<figure><img src="'+src+'" alt="'+alt+'" loading="lazy" decoding="async"></figure>')
+        elif tag.name in {'ol','ul'}:
+            flush();items=[clean_text(item.get_text(' ',strip=True)) for item in tag.find_all('li',recursive=False)]
+            if items:out.append('<'+tag.name+'>'+''.join('<li>'+E(item)+'</li>' for item in items if item)+'</'+tag.name+'>')
+        elif tag.name=='table':
+            flush(); clone=BeautifulSoup(str(tag),'html.parser').find('table')
+            for wrapper in clone.find_all(['span','div']):wrapper.unwrap()
+            for element in clone.find_all(True):
+                element.attrs={key:value for key,value in element.attrs.items() if key in {'colspan','rowspan','scope'}}
+            out.append(str(clone))
+    flush()
+    notice='개별 환자의 진단과 치료 결과는 상태와 치료 조건에 따라 달라질 수 있습니다.' if row['category']=='case' else '이 글은 일반적인 의료정보이며 개인별 진단과 치료계획은 달라질 수 있습니다.'
+    out.append('<aside class="medical-note"><strong>안내</strong><p>'+notice+'</p></aside>')
+    return ''.join(out)
+
 def assets(body,path):
     soup=BeautifulSoup(body,'html.parser'); first=soup.find('img',src=True); image=urljoin(BASE+'/'+path,first['src']) if first else ''
     citations=[]
@@ -71,7 +138,7 @@ def schema(row,body):
     return data,image,citations
 
 def render(row,body):
-    label='교정증례' if row['category']=='case' else '상담일기'; section='cases' if row['category']=='case' else 'consultation'; data,image,citations=schema(row,body); url=BASE+'/'+row['path']
+    label='교정증례' if row['category']=='case' else '상담일기'; section='cases' if row['category']=='case' else 'consultation'; data,image,citations=schema(row,body); url=BASE+'/'+row['path']; body=clean_article_body(row,body)
     sources=''
     if citations:sources='<section class="sources"><h2>근거와 출처</h2><ul>'+''.join('<li><a href="'+E(link)+'" target="_blank" rel="noopener noreferrer">'+E(urlsplit(link).hostname or link)+' ↗</a></li>' for link in citations)+'</ul></section>'
     meta='<title>'+E(row['title'])+' | 손창한 교정과 전문의</title><meta name="description" content="'+E(row['summary'])+'"><meta name="author" content="손창한"><link rel="canonical" href="'+url+'"><meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:title" content="'+E(row['title'])+'"><meta property="og:description" content="'+E(row['summary'])+'"><meta property="og:url" content="'+url+'">'+(('<meta property="og:image" content="'+E(image)+'">') if image else '')+'<script type="application/ld+json">'+json.dumps(data,ensure_ascii=False).replace('</','<\\/')+'</script>'
@@ -81,6 +148,12 @@ def enhance_legacy(row,text):
     if row['category']=='consultation':
         text=text.replace('상담일지','상담일기')
     if '/journal/ai-readable.css' not in text:text=text.replace('</head>','<link rel="stylesheet" href="/journal/ai-readable.css"></head>')
+    parsed=BeautifulSoup(text,'html.parser'); body_node=parsed.select_one('.body')
+    if body_node:
+        cleaned=BeautifulSoup(clean_article_body(row,body_node.decode_contents()),'html.parser')
+        body_node.clear()
+        for node in list(cleaned.contents):body_node.append(node)
+        text=str(parsed)
     if 'class="answer-box"' not in text:
         box='<aside class="answer-box"><span>'+('증례 요약' if row['category']=='case' else '핵심 답변')+'</span><p>'+E(row['summary'])+'</p></aside>'
         text=re.sub(r'(<div class="meta"[^>]*>.*?</div>)',r'\1'+box,text,count=1,flags=re.S)

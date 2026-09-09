@@ -29,3 +29,8 @@ The primary navigation is Home `/`, Doctor `/doctor/`, Consultation Journal
 navigation to public articles without changing their existing URLs or clinical
 body content. The blog sync workflow also stages the generated doctor page.
 `index-redesign.html` is the retained older, noindex design, not the current home.
+Public article bodies are normalized by `clean_article_body()` during every
+rebuild. It removes Naver editor decoration, greetings, emojis, stickers and
+embedded related-post previews. Consultation pages remain text-first; case
+pages keep clinical images while dropping promotional thumbnails and decorative
+media.
