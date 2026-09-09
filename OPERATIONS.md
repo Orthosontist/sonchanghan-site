@@ -20,3 +20,12 @@ The existing production site is `https://drsonchanghan.com`, backed by the GitHu
 Each indexed article has an HTML body, its own canonical URL, answer-first summary, author credentials, publication/update dates, source link, image metadata and category-aware structured data. Existing URLs are preserved. These enable discovery but do not guarantee indexing or AI citations.
 
 After deployment, resubmit `https://drsonchanghan.com/sitemap.xml` in the already verified Google Search Console property. Reconfirm the physician's affiliation when the fellowship ends; no clinic opening claims are currently promoted on the homepage.
+# Four-page site structure
+
+The primary navigation is Home `/`, Doctor `/doctor/`, Consultation Journal
+`/consultation/`, and Clinical Cases `/cases/`. Presentation templates live in
+`scripts/site_pages.py`, with shared responsive styles in `site.css`.
+`python scripts/rebuild_site.py` regenerates all four pages and applies the shared
+navigation to public articles without changing their existing URLs or clinical
+body content. The blog sync workflow also stages the generated doctor page.
+`index-redesign.html` is the retained older, noindex design, not the current home.

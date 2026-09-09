@@ -8,6 +8,7 @@ from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 import html, json, re
 from bs4 import BeautifulSoup
+from site_pages import build as build_four_pages
 
 ROOT=Path(__file__).resolve().parents[1]; BASE='https://drsonchanghan.com'; UPDATED=date.today().isoformat()
 E=lambda value:html.escape(str(value),quote=True)
@@ -157,8 +158,9 @@ def main():
     (ROOT/'consultation').mkdir(exist_ok=True); (ROOT/'cases').mkdir(exist_ok=True)
     (ROOT/'consultation/index.html').write_text(archive('consultation',consultations)); (ROOT/'cases/index.html').write_text(archive('case',cases))
     update_home(consultations,cases)
+    build_four_pages(ROOT, consultations, cases, CASE_CARD)
     (ROOT/'journal/index.html').write_text('<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="robots" content="noindex,follow"><link rel="canonical" href="'+BASE+'/consultation/"><meta http-equiv="refresh" content="0;url=/consultation/"><title>상담일기 | 손창한</title></head><body><a href="/consultation/">상담일기로 이동</a></body></html>')
-    urls=[(BASE+'/',site_updated),(BASE+'/consultation/',site_updated),(BASE+'/cases/',site_updated)]+[(BASE+'/'+row['path'],row['updated']) for row in public]; seen=set(); unique=[]
+    urls=[(BASE+'/',site_updated),(BASE+'/doctor/',site_updated),(BASE+'/consultation/',site_updated),(BASE+'/cases/',site_updated)]+[(BASE+'/'+row['path'],row['updated']) for row in public]; seen=set(); unique=[]
     for url,lastmod in urls:
         if url not in seen:unique.append((url,lastmod));seen.add(url)
     (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+E(url)+'</loc><lastmod>'+E(lastmod[:10])+'</lastmod></url>' for url,lastmod in unique)+'</urlset>\n')

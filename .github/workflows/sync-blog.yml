@@ -7,6 +7,7 @@ on:
     paths:
       - scripts/sync_blog.py
       - scripts/rebuild_site.py
+      - scripts/site_pages.py
       - journal/ai-readable.css
       - .github/workflows/sync-blog.yml
 permissions:
@@ -27,7 +28,7 @@ jobs:
       - run: python scripts/rebuild_site.py
       - name: Commit updated articles
         run: |
-          git add index.html consultation cases journal sitemap.xml
+          git add index.html doctor consultation cases journal sitemap.xml
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
