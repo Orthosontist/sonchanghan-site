@@ -5,6 +5,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from email.utils import parsedate_to_datetime
 from concurrent.futures import ThreadPoolExecutor
+from datetime import date
 import urllib.request, xml.etree.ElementTree as ET, re, html, json
 from bs4 import BeautifulSoup
 ROOT=Path(__file__).resolve().parents[1]
@@ -13,6 +14,13 @@ LEGACY={'224317625460':'diary-10-fixed-retainer','224303524267':'diary-9-senior-
 # Previously held back article, duplicate biography, and empty introductory post.
 SKIP={'224289955263','224234139904','224234099477'}
 E=lambda x:html.escape(str(x),quote=True)
+TODAY=date.today().isoformat()
+
+def article_body(path):
+    if not path.exists():return ''
+    match=re.search(r'<div class="body">(.*?)</div>\s*(?:<section|<aside|<footer)',path.read_text(),re.S)
+    return match.group(1).strip() if match else ''
+
 def fetch(url):
     with urllib.request.urlopen(url,timeout=30) as r:return r.read()
 def sanitize(raw):
@@ -69,7 +77,16 @@ def main():
     if not items:raise RuntimeError('Empty RSS; existing content preserved')
     manifest=ROOT/'journal/posts.json';old=json.loads(manifest.read_text()) if manifest.exists() else [];rows={r['id']:r for r in old};failures=[]
     def attempt(item):
-        try:return import_item(item)
+        source=item.findtext('link') or ''; match=re.search(r'/ckdtgks/(\d+)',source); previous=rows.get(match.group(1)) if match else None
+        previous_body=article_body(ROOT/previous['path']) if previous else ''
+        try:
+            row=import_item(item)
+            if not row:return None
+            changed=not previous or any(row.get(key)!=previous.get(key) for key in ('title','date','source','path'))
+            if previous and row['id'] not in LEGACY:
+                changed=changed or article_body(ROOT/row['path'])!=previous_body
+            row['updated']=TODAY if changed else previous.get('updated',TODAY)
+            return row
         except Exception as exc:failures.append((item.findtext('link'),str(exc)));return None
     with ThreadPoolExecutor(max_workers=3) as pool:
         for row in pool.map(attempt,items):
