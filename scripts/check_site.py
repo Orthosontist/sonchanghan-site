@@ -29,7 +29,11 @@ for name in paths:
 for row in rows:
     soup=BeautifulSoup((ROOT/row['path']).read_text(),'html.parser');body=soup.select_one('.body')
     if row['category']=='case':
-        if len(body.get_text())>700:errors.append((row['id'],'long case copy'))
+        if sum(len(p.get_text()) for p in body.select(':scope > p'))>700:errors.append((row['id'],'long case prose'))
+        if row['id']=='224389591858':
+            if any(h.get_text()=='치료 기록' for h in body.select('h2')):errors.append((row['id'],'detached image gallery'))
+            if len(body.select('figure'))!=8 or len(body.select('figcaption'))!=8:errors.append((row['id'],'missing contextual figure'))
+            if '이 환자에게 시행한 치료가 아닙니다' not in body.get_text():errors.append((row['id'],'CSF reference context'))
         if row['id']=='224298737298':
             sources=[img['src'] for img in body.select('img')]
             for original in ['01-cover.png','02-pre-treatment.png','03-diagnosis-plan.png','04-treatment-course.png','09-post-treatment.png','11-summary.png']:

@@ -66,7 +66,7 @@ def import_item(item):
     title=CURATED.get(id,{}).get('title',title_clean(item.findtext('title') or '기록'));date=parsedate_to_datetime(item.findtext('pubDate')).isoformat();source='https://blog.naver.com/ckdtgks/'+id
     path='cases/'+LEGACY[id]+'.html' if id in LEGACY else 'journal/'+id+'.html'
     row={'id':id,'title':title,'date':date,'source':source,'path':path}
-    if id in LEGACY or ((id in CURATED or id in CURATED_CASES) and (ROOT/path).exists()):return row
+    if id in LEGACY or ((id in CURATED or id in CURATED_CASES or (ROOT/'content/articles'/f'{id}.json').exists()) and (ROOT/path).exists()):return row
     body,text=sanitize(fetch('https://blog.naver.com/PostView.naver?blogId=ckdtgks&logNo='+id))
     row['description']=text[:160]
     schema={'@context':'https://schema.org','@type':'BlogPosting','headline':title,'description':row['description'],'datePublished':date,'inLanguage':'ko-KR','url':BASE+'/'+path,'mainEntityOfPage':BASE+'/'+path,'isBasedOn':source,'author':{'@type':'Person','@id':BASE+'/#author','name':'손창한','url':BASE+'/#about'}}

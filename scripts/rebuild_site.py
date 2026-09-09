@@ -10,6 +10,7 @@ import html, json, re, unicodedata
 from bs4 import BeautifulSoup
 from site_pages import build as build_four_pages
 from case_content import COPY as CASE_COPY, render as render_case_content
+from editor_content import load as load_editor_content, render as render_editor_content
 
 ROOT=Path(__file__).resolve().parents[1]; BASE='https://drsonchanghan.com'; UPDATED=date.today().isoformat()
 COPY=json.loads((ROOT/'scripts/consultation_copy.json').read_text())
@@ -77,6 +78,8 @@ def clean_article_body(row,body):
     Medical wording is retained. Only layout fragments, decorative media and
     conversational greetings/sign-offs are removed.
     """
+    edited=load_editor_content(row['id'])
+    if edited:return render_editor_content(edited,row['category'])
     if row['id'] in CASE_COPY:
         return render_case_content(row['id'])
     if row['id'] in COPY:
@@ -144,7 +147,9 @@ def assets(body,path):
 
 
 def schema(row,body):
-    if row['id'] in CASE_COPY:body=render_case_content(row['id'])
+    edited=load_editor_content(row['id'])
+    if edited:body=render_editor_content(edited,row['category'])
+    elif row['id'] in CASE_COPY:body=render_case_content(row['id'])
     label='교정증례' if row['category']=='case' else '상담일기'; url=BASE+'/'+row['path']; image,citations=assets(body,row['path'])
     data={'@context':'https://schema.org','@type':'BlogPosting','headline':row['title'],'description':row['summary'],'datePublished':row['date'],'dateModified':row['updated'],'inLanguage':'ko-KR','url':url,'mainEntityOfPage':url,'articleSection':label,'isBasedOn':row['source'],'about':{'@type':'MedicalSpecialty','name':'Orthodontics'},'author':{'@type':'Person','@id':BASE+'/#author','name':'손창한','alternateName':'Son Chang Han','jobTitle':'치과교정과 전문의 · 서울대학교치과병원 임상강사','url':BASE+'/#about','sameAs':['https://blog.naver.com/ckdtgks']},'publisher':{'@id':BASE+'/#author'}}
     if image:data['image']=image
@@ -241,6 +246,9 @@ def main():
     manifest=ROOT/'journal/posts.json'; posts=json.loads(manifest.read_text()); normalized=[]
     for old in posts:
         row=dict(old); row['title']=COPY.get(row['id'],{}).get('title',TITLE_FIX.get(row['id'],row['title'])); row['category']=category(row); row['updated']=row.get('updated') or UPDATED; row['summary']=summary(row); row['description']=row['summary']; normalized.append(row)
+        edited=load_editor_content(row['id'])
+        if edited:
+            row['title']=edited['title'];row['summary']=edited['summary'];row['description']=row['summary']
         path=ROOT/row['path']
         if not path.exists():continue
         text=path.read_text()

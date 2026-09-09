@@ -14,7 +14,7 @@ def navigation(active):
 
 
 def footer():
-    return '<footer class="site-footer"><div><strong>Dr. Son Chang Han</strong><p>교정과 전문의 손창한의 진료 철학과 기록</p></div><a href="https://blog.naver.com/ckdtgks" target="_blank" rel="noopener noreferrer">네이버 블로그</a></footer>'
+    return '<footer class="site-footer"><div><strong>Dr. Son Chang Han</strong><p>교정과 전문의 손창한의 진료 철학과 기록</p></div><a href="https://blog.naver.com/ckdtgks" target="_blank" rel="noopener noreferrer">네이버 블로그</a><a href="/admin/" rel="nofollow">관리자</a></footer>'
 
 
 def person():

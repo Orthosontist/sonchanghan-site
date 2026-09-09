@@ -1,8 +1,18 @@
 [build]
-  command = ""
+  command = "bash scripts/build_public.sh"
   publish = "."
 
 [[headers]]
   for = "/index-redesign.html"
   [headers.values]
     X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/content/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

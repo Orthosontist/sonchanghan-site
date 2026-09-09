@@ -1,0 +1,98 @@
+{
+  "title": "매복 어금니 자연 맹출 치료 증례 (미니스크류 실패, 미니스크류 없이)",
+  "summary": "매복된 아래 제2대구치의 자연 맹출을 관찰하면서 위쪽 과맹출 치아를 함께 함입한 부분교정 증례입니다.",
+  "category": "case",
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "치료 전"
+    },
+    {
+      "type": "paragraph",
+      "text": "20대 환자의 아래 왼쪽 제2대구치가 매복되어 있었고, 치관 주변 낭종이 의심되었습니다. 치근은 완성된 상태였으며, 맞물릴 위쪽 어금니는 과맹출되어 있었습니다."
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/224298737298/cropped/pre-treatment.png",
+      "alt": "치료 전 구강 내 사진",
+      "caption": "치료 전 · 2023.07.26"
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/224298737298/cropped/ct.png",
+      "alt": "매복된 아래 왼쪽 제2대구치 CT 영상",
+      "caption": "진단 시 CT 영상"
+    },
+    {
+      "type": "heading",
+      "text": "치료 방향"
+    },
+    {
+      "type": "paragraph",
+      "text": "아래 사랑니 발치와 낭종 제거 후 자연 맹출을 관찰하고, 위쪽 어금니는 부분교정으로 함입하기로 했습니다. 자연 맹출이 없을 경우 견인할 수 있도록 버튼을 미리 부착했습니다."
+    },
+    {
+      "type": "heading",
+      "text": "자연 맹출 경과"
+    },
+    {
+      "type": "paragraph",
+      "text": "낭종 제거 후 아래 매복치에는 교정적 견인력을 가하지 않았습니다. 약 1년에 걸쳐 자연 맹출을 확인했습니다. 위쪽 어금니 함입 중 미니스크류가 탈락한 뒤에는 별도 함입 장치로 마무리했습니다."
+    },
+    {
+      "type": "sequence",
+      "images": [
+        {
+          "type": "image",
+          "src": "/images/cases/224298737298/05-progress-2023-07.png",
+          "alt": "2023.07 아래 왼쪽 제2대구치 방사선사진",
+          "caption": "2023.07"
+        },
+        {
+          "type": "image",
+          "src": "/images/cases/224298737298/06-progress-2023-10.png",
+          "alt": "2023.10 아래 왼쪽 제2대구치 방사선사진",
+          "caption": "2023.10"
+        },
+        {
+          "type": "image",
+          "src": "/images/cases/224298737298/07-progress-2024-01.png",
+          "alt": "2024.01 아래 왼쪽 제2대구치 방사선사진",
+          "caption": "2024.01"
+        },
+        {
+          "type": "image",
+          "src": "/images/cases/224298737298/08-progress-2024-10.png",
+          "alt": "2024.10 아래 왼쪽 제2대구치 방사선사진",
+          "caption": "2024.10"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/224298737298/cropped/treatment-course.png",
+      "alt": "위쪽 어금니 함입 장치와 아래 어금니 맹출의 변화",
+      "caption": "장치와 구강 내 변화 · 2024.04 → 2024.12"
+    },
+    {
+      "type": "heading",
+      "text": "치료 결과"
+    },
+    {
+      "type": "paragraph",
+      "text": "아래 어금니의 맹출과 위쪽 어금니의 함입이 이루어져 부분교정을 마쳤습니다. 아래 치아가 노출된 뒤 견인 대비용 버튼을 제거했습니다. 자연 맹출 가능성은 개별 상태에 따라 다릅니다."
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/224298737298/cropped/post-treatment.png",
+      "alt": "치료 후 구강 내 사진",
+      "caption": "치료 후 · 2024.12.18"
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/224298737298/10-before-after.png",
+      "alt": "아래 왼쪽 제2대구치의 치료 전후 방사선사진",
+      "caption": "치료 전후 비교"
+    }
+  ]
+}

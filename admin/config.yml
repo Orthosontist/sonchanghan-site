@@ -1,0 +1,68 @@
+backend:
+  name: github
+  repo: Orthosontist/sonchanghan-site
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+site_domain: drsonchanghan.com
+site_url: https://drsonchanghan.com
+display_url: https://drsonchanghan.com
+locale: ko
+publish_mode: editorial_workflow
+media_folder: images/uploads
+public_folder: /images/uploads
+collections:
+  - name: articles
+    label: 상담 일기 · 치료 증례
+    folder: content/articles
+    format: json
+    extension: json
+    create: false
+    delete: false
+    identifier_field: title
+    summary: '{{title}}'
+    view_filters:
+      - {label: 상담 일기, field: category, pattern: consultation}
+      - {label: 치료 증례, field: category, pattern: case}
+    fields:
+      - {label: 제목, name: title, widget: string}
+      - {label: 핵심 요약, name: summary, widget: text}
+      - {label: 분류, name: category, widget: hidden}
+      - label: 본문 순서
+        name: blocks
+        widget: list
+        collapsed: true
+        types:
+          - label: 소제목
+            name: heading
+            widget: object
+            summary: '{{fields.text}}'
+            fields:
+              - {label: 소제목, name: text, widget: string}
+          - label: 문단
+            name: paragraph
+            widget: object
+            summary: '{{fields.text}}'
+            fields:
+              - {label: 내용, name: text, widget: text}
+          - label: 사진
+            name: image
+            widget: object
+            summary: '{{fields.caption}}'
+            fields:
+              - {label: 사진, name: src, widget: image}
+              - {label: 사진 설명, name: alt, widget: string, hint: 사진을 볼 수 없을 때도 내용을 이해할 수 있는 설명}
+              - {label: 사진 아래 설명, name: caption, widget: string, required: false}
+          - label: 연속 사진 묶음
+            name: sequence
+            widget: object
+            fields:
+              - label: 사진 순서
+                name: images
+                widget: list
+                collapsed: true
+                summary: '{{fields.caption}}'
+                fields:
+                  - {label: 사진, name: src, widget: image}
+                  - {label: 사진 설명, name: alt, widget: string}
+                  - {label: 촬영 시점 또는 설명, name: caption, widget: string, required: false}
