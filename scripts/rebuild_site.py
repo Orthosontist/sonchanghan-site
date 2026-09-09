@@ -11,6 +11,9 @@ from bs4 import BeautifulSoup
 from site_pages import build as build_four_pages
 
 ROOT=Path(__file__).resolve().parents[1]; BASE='https://drsonchanghan.com'; UPDATED=date.today().isoformat()
+COPY=json.loads((ROOT/'scripts/consultation_copy.json').read_text())
+MEDIA_MAP_PATH=ROOT/'images/cases/remote-map.json'
+MEDIA_MAP=json.loads(MEDIA_MAP_PATH.read_text()) if MEDIA_MAP_PATH.exists() else {}
 E=lambda value:html.escape(str(value),quote=True)
 PERSONAL={'224373757419','224354464965','224285092639','224284304710','224236743246'}
 CASES={'224389591858','224379790553','224367766837','224363724085','224353239670','224348849201','224347421988','224342451500','224341965456','224298737298'}
@@ -42,6 +45,7 @@ IMPACTED_MOLAR_MEDIA='/images/cases/224298737298/'
 
 def category(row):
     title=row['title']; post_id=row['id']
+    if post_id in COPY:return 'consultation'
     if post_id in PERSONAL or re.search(r'\[(?:근황|독서)\]|잡념|주절주절|전쟁',title): return 'exclude'
     if post_id in CASES or '증례' in title: return 'case'
     if post_id=='224289274170': return 'consultation'
@@ -72,6 +76,9 @@ def clean_article_body(row,body):
     Medical wording is retained. Only layout fragments, decorative media and
     conversational greetings/sign-offs are removed.
     """
+    if row['id'] in COPY:
+        sections=COPY[row['id']]['sections']
+        return ''.join('<h2>'+E(h)+'</h2><p>'+E(p)+'</p>' for h,p in sections)+'<aside class="medical-note"><strong>안내</strong><p>이 글은 일반적인 정보이며 개인별 진단과 치료계획은 달라질 수 있습니다.</p></aside>'
     soup=BeautifulSoup(body,'html.parser'); out=[]; pending=[]
     headings={'치료 전','치료 계획','치료 과정','치료 후','치료를 마무리하며','마무리하며','결론','정리','주의사항'}
     skip_patterns=(r'^안녕하세요[,.]?$',r'^안녕하세요.*손창한.*(?:입니다|입니다[.]?)',r'^(?:서울대학교 )?치과교정과? 전문의.*(?:입니다|입니다[.]?)$',r'^이상 .*손창한.*(?:입니다|이었습니다)',r'^m\.blog\.naver\.com$',r'^출처\s*:',r'^📖')
@@ -108,8 +115,8 @@ def clean_article_body(row,body):
             if len(' '.join(pending))>=190 or text.endswith(('.', '?', '!', '다.', '요.', '죠.')):flush()
         elif tag.name=='img':
             if keep_image(tag):
-                flush();src=E(tag.get('src',''));alt=E(clean_text(tag.get('alt','')) or row['title']+' 임상 사진')
-                out.append('<figure><img src="'+src+'" alt="'+alt+'" loading="lazy" decoding="async"></figure>')
+                flush();original_src=tag.get('src','');src=E(MEDIA_MAP.get(original_src,original_src));alt=E(clean_text(tag.get('alt','')) or row['title']+' 임상 사진')
+                out.append('<figure><img src="'+src+'" alt="'+alt+'" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure>')
         elif tag.name in {'ol','ul'}:
             flush();items=[clean_text(item.get_text(' ',strip=True)) for item in tag.find_all('li',recursive=False)]
             if items:out.append('<'+tag.name+'>'+''.join('<li>'+E(item)+'</li>' for item in items if item)+'</'+tag.name+'>')
@@ -125,7 +132,7 @@ def clean_article_body(row,body):
     return ''.join(out)
 
 def assets(body,path):
-    soup=BeautifulSoup(body,'html.parser'); first=soup.find('img',src=True); image=urljoin(BASE+'/'+path,first['src']) if first else ''
+    soup=BeautifulSoup(body,'html.parser'); first=soup.find('img',src=True); image=urljoin(BASE+'/'+path,MEDIA_MAP.get(first['src'],first['src'])) if first else ''
     citations=[]
     for link in soup.find_all('a',href=True):
         url=link['href']; host=urlsplit(url).hostname or ''
@@ -191,6 +198,8 @@ def render(row,body):
     return '<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+meta+'<link rel="stylesheet" href="/journal/style.css"><link rel="stylesheet" href="/journal/ai-readable.css"></head><body><header><a href="/">Dr. Son Chang Han</a><a href="/'+section+'/">'+label+' 목록</a></header><main><article><p class="eyebrow">'+('Clinical Case' if section=='cases' else 'Consultation Journal')+' · 손창한의 기록</p><h1>'+E(row['title'])+'</h1><p class="meta"><time datetime="'+E(row['date'])+'">'+E(row['date'][:10])+'</time> · <a href="/#about">교정과 전문의 손창한</a> · 홈페이지 업데이트 <time datetime="'+row['updated']+'">'+row['updated']+'</time></p><aside class="answer-box"><span>'+('증례 요약' if section=='cases' else '핵심 답변')+'</span><p>'+E(row['summary'])+'</p></aside><div class="body">'+body+'</div>'+sources+'<aside class="author-card"><strong>작성자 · 손창한</strong><p>보건복지부 인증 치과교정과 전문의 · 치의학박사<br>서울대학교치과병원 치과교정과 임상강사</p></aside><footer><p>네이버 블로그에 게시한 글을 바탕으로 홈페이지에서 분류·요약한 기록입니다.</p><a href="'+row['source']+'" target="_blank" rel="noopener noreferrer">네이버 원문 보기 ↗</a><p><a href="/'+section+'/">← '+label+' 전체 보기</a></p></footer></article></main><script src="/journal/lightbox.js" defer></script></body></html>'
 
 def enhance_legacy(row,text):
+    if row['category']=='case' and '/journal/lightbox.js' not in text:
+        text=text.replace('</body>','<script src="/journal/lightbox.js" defer></script></body>')
     if row['category']=='consultation':
         text=text.replace('상담일지','상담일기')
     if '/journal/ai-readable.css' not in text:text=text.replace('</head>','<link rel="stylesheet" href="/journal/ai-readable.css"></head>')
@@ -223,6 +232,14 @@ def enhance_legacy(row,text):
         text=re.sub(r'<title>.*?</title>','<title>'+page_title+'</title>',text,count=1,flags=re.S)
         text=re.sub(r'(<meta property="og:title" content=")[^"]*(")',r'\1'+E(row['title'])+r'\2',text,count=1)
         text=re.sub(r'<h1>.*?</h1>','<h1>'+E(row['title'])+'</h1>',text,count=1,flags=re.S)
+    if row['id'] in COPY:
+        doc=BeautifulSoup(text,'html.parser')
+        doc.title.string=row['title']+' | 손창한 교정과 전문의'
+        doc.h1.string=row['title']
+        og=doc.select_one('meta[property="og:title"]')
+        if og:og['content']=row['title']
+        for box in doc.select('.answer-box p'):box.string=row['summary']
+        text=str(doc)
     return text
 
 def card(row):
@@ -267,7 +284,7 @@ def archive(kind,rows):
 def main():
     manifest=ROOT/'journal/posts.json'; posts=json.loads(manifest.read_text()); normalized=[]
     for old in posts:
-        row=dict(old); row['title']=TITLE_FIX.get(row['id'],row['title']); row['category']=category(row); row['updated']=row.get('updated') or UPDATED; row['summary']=summary(row); row['description']=row['summary']; normalized.append(row)
+        row=dict(old); row['title']=COPY.get(row['id'],{}).get('title',TITLE_FIX.get(row['id'],row['title'])); row['category']=category(row); row['updated']=row.get('updated') or UPDATED; row['summary']=summary(row); row['description']=row['summary']; normalized.append(row)
         path=ROOT/row['path']
         if not path.exists():continue
         text=path.read_text()
