@@ -36,8 +36,7 @@ def page(path, title, description, content, data):
 def tile(row, case_titles):
     is_case = row['category'] == 'case'
     label, title = case_titles.get(row['id'], ('치료 증례', row['title'])) if is_case else ('상담 일기', row['title'])
-    picture = f'<img src="/images/case-thumbnails/{row["id"]}.webp" alt="{E(title)} 치료 전후" loading="lazy" decoding="async">' if is_case and row.get('has_thumbnail') else ''
-    return f'<a class="record-card {"case-record" if is_case else "journal-record"}" href="/{E(row["path"])}">{picture}<div class="record-copy"><p class="record-meta">{E(label)} <time datetime="{E(row["date"])}">{E(row["date"][:10])}</time></p><h2>{E(title)}</h2><p>{E(row["summary"])}</p><span class="read-link">{"증례" if is_case else "일기"} 읽기 →</span></div></a>'
+    return f'<a class="record-card {"case-record" if is_case else "journal-record"}" href="/{E(row["path"])}"><div class="record-copy"><p class="record-meta">{E(label)} <time datetime="{E(row["date"])}">{E(row["date"][:10])}</time></p><h2>{E(title)}</h2><p>{E(row["summary"])}</p><span class="read-link">{"증례" if is_case else "일기"} 읽기 →</span></div></a>'
 
 
 def archive(kind, rows, case_titles):
@@ -78,7 +77,6 @@ def decorate_article(text, active):
 
 
 def build(root, consultations, cases, case_titles):
-    for row in cases: row['has_thumbnail'] = (root/'images/case-thumbnails'/f'{row["id"]}.webp').exists()
     (root/'doctor').mkdir(exist_ok=True)
     (root/'index.html').write_text(home(consultations,cases,case_titles))
     (root/'doctor/index.html').write_text(doctor())
