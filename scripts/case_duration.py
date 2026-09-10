@@ -12,5 +12,4 @@ def label(data):
 
 def markup(data):
     if data.get('category')!='case':return ''
-    note=data.get('duration_note') or ''
-    return '<div class="case-duration"><span>치료 기간</span><strong>'+html.escape(label(data))+'</strong>'+('<small>'+html.escape(note)+'</small>' if note else '')+'</div>'
+    return '<div class="case-duration"><span>치료 기간</span><strong>'+html.escape(label(data))+'</strong></div>'

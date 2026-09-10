@@ -18,3 +18,15 @@ footer.site-footer{background:#f5f3ee}
 .case-duration>strong{font-weight:600}
 .case-duration>small{flex-basis:100%;font-size:.875rem;color:#626b77}
 .answer-box .case-duration{margin:1.25rem 0 0;padding-top:1rem;border-top:1px solid #d5dde7}
+/* Mobile: full readable panels. Desktop: diagrams and tracings at restrained sizes. */
+.body figure.case-media{background:transparent;margin:2rem auto;max-width:100%}
+.body figure.case-media>img{display:block;width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:contain;background:white;margin:0}
+.body .media-comparison{display:grid;grid-template-columns:1fr;gap:1.5rem;margin:2rem 0;align-items:start}
+.body .media-comparison>figure.case-media{width:100%;margin:0;min-width:0}
+.body .clinical-sequence-grid>figure.case-media{margin:0}
+@media(min-width:800px){
+ .body>figure.media-medium{max-width:540px}
+ .body>figure.media-compact{max-width:380px}
+ .body .media-comparison{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .body .media-triptych{grid-template-columns:repeat(3,minmax(0,1fr))}
+}

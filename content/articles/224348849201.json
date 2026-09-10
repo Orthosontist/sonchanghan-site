@@ -12,57 +12,57 @@
       "text": "20대 남성으로 위아래 앞니가 나비 모양으로 회전하고, 위쪽 앞니 한 개가 반대로 물렸습니다. 큰 골격 문제는 없었으나 아래 앞니의 크기 비율이 상대적으로 컸습니다."
     },
     {
+      "type": "image",
+      "src": "/images/cases/imported/607881f09a0f2d99e22d371d.png",
+      "alt": "치료 전 · 회전된 앞니와 반대교합",
+      "caption": "치료 전 · 회전된 앞니와 반대교합",
+      "size": "wide"
+    },
+    {
       "type": "heading",
-      "text": "치료 방향"
+      "text": "치료 과정"
     },
     {
       "type": "paragraph",
       "text": "비발치 전체교정과 아래 앞니 치간삭제로 배열 공간과 치아 크기 비율을 조절했습니다. 마무리 단계에서는 구강 기록과 방사선사진으로 교합과 치근 각도를 확인했습니다."
     },
     {
+      "type": "image",
+      "src": "/images/cases/imported/a3d93d1f742dd9222ef3f776.png",
+      "alt": "치료 과정 · 비발치 배열",
+      "caption": "치료 과정 · 비발치 배열",
+      "size": "wide"
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/imported/86656b799ac20ae64b3c5d5f.png",
+      "alt": "마무리 단계 · 치근 각도 확인",
+      "caption": "마무리 단계 · 치근 각도 확인",
+      "size": "wide"
+    },
+    {
       "type": "heading",
-      "text": "결과와 유지"
+      "text": "치료 후"
     },
     {
       "type": "paragraph",
       "text": "1년 3개월 후 총생과 반대교합이 해소되고 앞니 배열이 정돈되었습니다. 회전의 재발을 줄이기 위해 고정식 유지장치를 부착하고 정기검진을 계획했습니다."
     },
     {
-      "type": "heading",
-      "text": "치료 기록"
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/607881f09a0f2d99e22d371d.png",
-      "alt": "짧은 치료 기간으로 나비 앞니 전체 교정 · 임상 기록 1",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/a3d93d1f742dd9222ef3f776.png",
-      "alt": "짧은 치료 기간으로 나비 앞니 전체 교정 · 임상 기록 2",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/86656b799ac20ae64b3c5d5f.png",
-      "alt": "짧은 치료 기간으로 나비 앞니 전체 교정 · 임상 기록 3",
-      "caption": ""
-    },
-    {
       "type": "image",
       "src": "/images/cases/imported/fea95d5ee451e16491435fec.png",
-      "alt": "짧은 치료 기간으로 나비 앞니 전체 교정 · 임상 기록 4",
-      "caption": ""
+      "alt": "치료 후 · 앞니 배열과 맞물림",
+      "caption": "치료 후 · 앞니 배열과 맞물림",
+      "size": "wide"
     },
     {
       "type": "image",
       "src": "/images/cases/imported/26d204bc810f2084f1c49547.png",
-      "alt": "짧은 치료 기간으로 나비 앞니 전체 교정 · 임상 기록 5",
-      "caption": ""
+      "alt": "치료 전후 · 위아래 치열 비교",
+      "caption": "치료 전후 · 위아래 치열 비교",
+      "size": "wide"
     }
   ],
   "duration_months": 15,
-  "duration_approximate": false,
-  "duration_note": ""
+  "duration_approximate": false
 }

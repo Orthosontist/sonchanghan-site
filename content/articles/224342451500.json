@@ -12,69 +12,71 @@
       "text": "성장기 환자로 심한 총생, 과개교합과 일부 반대교합이 있었습니다. 골격성 II급 관계와 안면 비대칭을 함께 확인하고 성장 상태를 평가했습니다."
     },
     {
+      "type": "image",
+      "src": "/images/cases/imported/cfe2c50a68cb9761c2757526.png",
+      "alt": "치료 전 · 심한 총생과 과개교합",
+      "caption": "치료 전 · 심한 총생과 과개교합",
+      "size": "wide"
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/imported/b81b22aa3854ae555155770b.png",
+      "alt": "치료 전 · 손목뼈 영상으로 성장 상태 평가",
+      "caption": "치료 전 · 손목뼈 영상으로 성장 상태 평가",
+      "size": "medium"
+    },
+    {
       "type": "heading",
-      "text": "치료 방향"
+      "text": "치료 과정"
     },
     {
       "type": "paragraph",
       "text": "작은어금니 4개를 발치하고 전체교정을 진행했습니다. 앞니가 더 깊게 물리지 않도록 각도를 조절하며 공간을 닫고, 미니스크류로 정중선 개선을 도왔습니다."
     },
     {
+      "type": "image",
+      "src": "/images/cases/imported/8602562c4bf1d72254967066.png",
+      "alt": "치료 초기 · 배열과 교합 높이 조절",
+      "caption": "치료 초기 · 배열과 교합 높이 조절",
+      "size": "wide"
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/imported/489dc853e3d63a3c2443c0a2.png",
+      "alt": "치료 과정 · 발치 공간 폐쇄",
+      "caption": "치료 과정 · 발치 공간 폐쇄",
+      "size": "wide"
+    },
+    {
       "type": "heading",
-      "text": "결과와 한계"
+      "text": "치료 후"
     },
     {
       "type": "paragraph",
       "text": "2년 5개월 후 심한 총생과 과개교합이 개선되었습니다. 골격 비대칭으로 정중선의 완전한 일치에는 한계가 있음을 치료 전 설명하고, 가능한 범위에서 치열을 조절했습니다."
     },
     {
-      "type": "heading",
-      "text": "치료 기록"
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/cfe2c50a68cb9761c2757526.png",
-      "alt": "심한 덧니를 가진 청소년 환자의 발치 교정 증례 · 임상 기록 1",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/b81b22aa3854ae555155770b.png",
-      "alt": "심한 덧니를 가진 청소년 환자의 발치 교정 증례 · 임상 기록 2",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/8602562c4bf1d72254967066.png",
-      "alt": "심한 덧니를 가진 청소년 환자의 발치 교정 증례 · 임상 기록 3",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/489dc853e3d63a3c2443c0a2.png",
-      "alt": "심한 덧니를 가진 청소년 환자의 발치 교정 증례 · 임상 기록 4",
-      "caption": ""
-    },
-    {
       "type": "image",
       "src": "/images/cases/imported/79ccbcac53200d36e1f0b7ae.png",
-      "alt": "심한 덧니를 가진 청소년 환자의 발치 교정 증례 · 임상 기록 5",
-      "caption": ""
+      "alt": "치료 후 · 총생과 과개교합 개선",
+      "caption": "치료 후 · 총생과 과개교합 개선",
+      "size": "wide"
     },
     {
       "type": "image",
       "src": "/images/cases/imported/01b6c61c435db974114675b4.png",
-      "alt": "심한 덧니를 가진 청소년 환자의 발치 교정 증례 · 임상 기록 6",
-      "caption": ""
+      "alt": "치료 전후 · 치열 비교",
+      "caption": "치료 전후 · 치열 비교",
+      "size": "wide"
     },
     {
       "type": "image",
-      "src": "/images/cases/imported/fcdb48016bc549247954aa72.jpg",
-      "alt": "심한 덧니를 가진 청소년 환자의 발치 교정 증례 · 임상 기록 7",
-      "caption": ""
+      "src": "/images/cases/trimmed/224342451500-tracing.png",
+      "alt": "치료 전후 중첩: 검은 선은 치료 전, 빨간 선은 치료 후",
+      "caption": "중첩 · 검은 선은 치료 전, 빨간 선은 치료 후",
+      "size": "compact"
     }
   ],
   "duration_months": 29,
-  "duration_approximate": false,
-  "duration_note": ""
+  "duration_approximate": false
 }

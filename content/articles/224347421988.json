@@ -12,69 +12,57 @@
       "text": "20대 남성으로 치열이 고르지 않고 위쪽 앞니 정중선이 얼굴 중심에 비해 오른쪽으로 치우쳐 있었습니다. 앞니의 각도와 좌우 어금니 관계도 함께 평가했습니다."
     },
     {
+      "type": "image",
+      "src": "/images/cases/imported/e7f85a0a5dd5afbf04dfb0ad.png",
+      "alt": "치료 전 · 불규칙한 치열",
+      "caption": "치료 전 · 불규칙한 치열",
+      "size": "wide"
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/imported/caafc6e475d90f4eb23ddaa4.png",
+      "alt": "치료 전 · 얼굴 중심과 위 앞니 정중선",
+      "caption": "치료 전 · 얼굴 중심과 위 앞니 정중선",
+      "size": "wide"
+    },
+    {
       "type": "heading",
-      "text": "치료 방향"
+      "text": "치료 과정"
     },
     {
       "type": "paragraph",
       "text": "비발치 전체교정으로 치아를 배열한 뒤, 상악 좌측 미니스크류를 이용해 위쪽 치열을 왼쪽으로 이동시켰습니다. 앞니만이 아니라 치열 전체의 위치를 조절했습니다."
     },
     {
+      "type": "image",
+      "src": "/images/cases/imported/323d378849cc9eb792773c35.png",
+      "alt": "미니스크류를 이용한 위쪽 치열의 이동",
+      "caption": "미니스크류를 이용한 위쪽 치열의 이동",
+      "size": "wide"
+    },
+    {
       "type": "heading",
-      "text": "치료 결과"
+      "text": "치료 후"
     },
     {
       "type": "paragraph",
       "text": "1년 4개월 후 위아래 앞니 정중선과 양쪽 어금니 맞물림이 개선되었습니다. 앞으로 기울었던 앞니의 각도가 개선되면서 입술의 돌출감도 줄었습니다."
     },
     {
-      "type": "heading",
-      "text": "치료 기록"
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/e7f85a0a5dd5afbf04dfb0ad.png",
-      "alt": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 · 임상 기록 1",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/caafc6e475d90f4eb23ddaa4.png",
-      "alt": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 · 임상 기록 2",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/323d378849cc9eb792773c35.png",
-      "alt": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 · 임상 기록 3",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/9fd0bdb2496cfe456e23e351.png",
-      "alt": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 · 임상 기록 4",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/93d04c9889c4a8cec1d32acd.png",
-      "alt": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 · 임상 기록 5",
-      "caption": ""
-    },
-    {
       "type": "image",
       "src": "/images/cases/imported/6759c927dbca9e39f1ecd2c1.png",
-      "alt": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 · 임상 기록 6",
-      "caption": ""
+      "alt": "치료 후 · 정중선과 교합",
+      "caption": "치료 후 · 정중선과 교합",
+      "size": "wide"
     },
     {
       "type": "image",
       "src": "/images/cases/imported/e8c02772a3bb506ace6dc6ec.png",
-      "alt": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 · 임상 기록 7",
-      "caption": ""
+      "alt": "치료 전후 · 정면과 측면의 변화",
+      "caption": "치료 전후 · 정면과 측면의 변화",
+      "size": "wide"
     }
   ],
   "duration_months": 16,
-  "duration_approximate": false,
-  "duration_note": ""
+  "duration_approximate": false
 }

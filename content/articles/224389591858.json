@@ -91,7 +91,8 @@
       "type": "image",
       "src": "/images/cases/imported/436c278810ea48bdac23418c.png",
       "alt": "검토했던 치은섬유절개술(CSF)의 설명용 이미지",
-      "caption": "참고 이미지 · 검토했던 CSF 술식이며, 이 환자에게 시행한 치료가 아닙니다."
+      "caption": "참고 이미지 · 검토했던 CSF 술식이며, 이 환자에게 시행한 치료가 아닙니다.",
+      "size": "compact"
     },
     {
       "type": "image",
@@ -101,6 +102,5 @@
     }
   ],
   "duration_months": 15,
-  "duration_approximate": false,
-  "duration_note": ""
+  "duration_approximate": false
 }

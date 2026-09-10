@@ -29,7 +29,6 @@ collections:
       - {label: 핵심 요약, name: summary, widget: text}
       - {label: 치료 기간 (총 개월 수), name: duration_months, widget: number, value_type: int, min: 0, required: false, hint: '증례만 입력. 15 입력 시 1년 3개월로 표시됩니다. 사진 촬영일이 아닌 원문 치료 기간 기준이며, 미기재 시 비워두세요.'}
       - {label: 대략적인 기간, name: duration_approximate, widget: boolean, default: false, required: false}
-      - {label: 치료 기간 보충 설명, name: duration_note, widget: string, required: false}
       - {label: 분류, name: category, widget: hidden}
       - label: 본문 순서
         name: blocks
@@ -54,12 +53,14 @@ collections:
             summary: '{{fields.caption}}'
             fields:
               - {label: 사진, name: src, widget: image}
+              - {label: PC 사진 크기, name: size, widget: select, options: [{label: 큰 임상사진, value: wide}, {label: 중간 크기, value: medium}, {label: 작은 그림·중첩, value: compact}], default: wide, required: false}
               - {label: 사진 설명, name: alt, widget: string, hint: 사진을 볼 수 없을 때도 내용을 이해할 수 있는 설명}
               - {label: 사진 아래 설명, name: caption, widget: string, required: false}
           - label: 연속 사진 묶음
             name: sequence
             widget: object
             fields:
+              - {label: 배치, name: layout, widget: select, options: [{label: 날짜별 연속 사진, value: timeline}, {label: PC에서 좌우 비교, value: comparison}, {label: PC에서 세 장 나란히, value: triptych}], default: timeline, required: false}
               - label: 사진 순서
                 name: images
                 widget: list

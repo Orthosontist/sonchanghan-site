@@ -1,10 +1,9 @@
 {
-  "title": "송곳니 발치와 작은어금니 대체 교정",
+  "title": "송곳니 발치와 작은어금니 대체를 통한 돌출입 교정",
   "summary": "위치가 크게 벗어난 위 송곳니를 발치하고 작은어금니가 그 자리를 대신하도록 치료한 증례입니다. 앞니의 각도를 조절하며 발치 공간을 닫아 치열과 입술 돌출감을 개선했습니다.",
   "category": "case",
   "duration_months": 21,
   "duration_approximate": false,
-  "duration_note": "",
   "blocks": [
     {
       "type": "heading",
@@ -62,7 +61,8 @@
       "type": "image",
       "src": "/images/cases/224406063417/08.png",
       "alt": "앞니 이동 시 치아 머리와 뿌리의 각도 조절을 설명하는 그림",
-      "caption": "설명 그림 · 공간 폐쇄 시 앞니가 과도하게 기울지 않도록 조절"
+      "caption": "설명 그림 · 공간 폐쇄 시 앞니가 과도하게 기울지 않도록 조절",
+      "size": "compact"
     },
     {
       "type": "paragraph",
@@ -72,7 +72,8 @@
       "type": "image",
       "src": "/images/cases/224406063417/09.png",
       "alt": "송곳니와 작은어금니의 형태 차이를 설명하는 그림",
-      "caption": "형태 비교 · 작은어금니의 입천장 쪽 교두 확인"
+      "caption": "형태 비교 · 작은어금니의 입천장 쪽 교두 확인",
+      "size": "compact"
     },
     {
       "type": "heading",
@@ -102,9 +103,10 @@
     },
     {
       "type": "image",
-      "src": "/images/cases/224406063417/13.png",
+      "src": "/images/cases/trimmed/224406063417-tracing.png",
       "alt": "치료 전후 중첩을 통한 앞니 위치와 입술 윤곽 비교",
-      "caption": "중첩 · 검은 선은 치료 전, 빨간 선은 치료 후"
+      "caption": "중첩 · 검은 선은 치료 전, 빨간 선은 치료 후",
+      "size": "compact"
     },
     {
       "type": "heading",

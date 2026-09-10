@@ -1,7 +1,7 @@
 [
   {
     "id": "224406063417",
-    "title": "송곳니 발치와 작은어금니 대체 교정",
+    "title": "송곳니 발치와 작은어금니 대체를 통한 돌출입 교정",
     "category": "case",
     "date": "2026-09-10T08:40:00+09:00",
     "updated": "2026-09-10",
@@ -11,7 +11,7 @@
     "description": "위치가 크게 벗어난 위 송곳니를 발치하고 작은어금니가 그 자리를 대신하도록 치료한 증례입니다. 앞니의 각도를 조절하며 발치 공간을 닫아 치열과 입술 돌출감을 개선했습니다.",
     "duration_months": 21,
     "duration_approximate": false,
-    "duration_note": ""
+    "duration_note": null
   },
   {
     "id": "224403787474",
@@ -47,7 +47,7 @@
     "summary": "앞니 사이 공간과 정중선 불일치의 원인을 확인한 뒤, 심하게 회전된 작은어금니를 함께 교정한 증례입니다. 비발치 교정으로 좌우 공간을 조절하고, 회전 재발을 줄이기 위한 유지장치를 추가했습니다.",
     "duration_months": 15,
     "duration_approximate": false,
-    "duration_note": ""
+    "duration_note": null
   },
   {
     "id": "224383899601",
@@ -72,7 +72,7 @@
     "summary": "주걱턱을 동반한 골격성 3급 부정교합에서 수술교정을 시행한 증례입니다. 술전·술후 교정을 포함해 약 1년 2개월 동안 진행한 치료계획과 결과를 기록했습니다.",
     "duration_months": 14,
     "duration_approximate": false,
-    "duration_note": ""
+    "duration_note": null
   },
   {
     "id": "224373757419",
@@ -97,7 +97,7 @@
     "summary": "가로로 매복된 영구치의 위치와 맹출 가능성을 평가한 뒤 교정적 견인을 시행한 성장기 증례입니다. 진단부터 견인 과정과 최종 배열까지 기록했습니다.",
     "duration_months": 12,
     "duration_approximate": true,
-    "duration_note": ""
+    "duration_note": null
   },
   {
     "id": "224366709586",
@@ -122,7 +122,7 @@
     "summary": "아래 앞니 3개 없었던 치열, 교정과 임플란트로 치료할 수 있을까요? 교정 후 임플란트로 치료한 증례의 진단, 치료계획과 진행 과정을 기록한 교정증례입니다.",
     "duration_months": 36,
     "duration_approximate": false,
-    "duration_note": "2022년 11월–2025년 11월"
+    "duration_note": null
   },
   {
     "id": "224354464965",
@@ -147,7 +147,7 @@
     "summary": "치아 뿌리가 짧아도 교정할 수 있을까요? 10개월 비발치 교정 앞니 배열 개선한 증례의 진단, 치료계획과 진행 과정을 기록한 교정증례입니다.",
     "duration_months": 10,
     "duration_approximate": false,
-    "duration_note": ""
+    "duration_note": null
   },
   {
     "id": "224351729417",
@@ -172,7 +172,7 @@
     "summary": "짧은 치료 기간으로 나비 앞니 전체 교정 (나비 치아 비발치 전체 교정)의 진단, 치료계획과 진행 과정을 기록한 교정증례입니다.",
     "duration_months": 15,
     "duration_approximate": false,
-    "duration_note": ""
+    "duration_note": null
   },
   {
     "id": "224347421988",
@@ -186,7 +186,7 @@
     "summary": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 (미니스크류 이용한 정중선 개선, Simple Class I Crowding)의 진단, 치료계획과 진행 과정을 기록한 교정증례입니다.",
     "duration_months": 16,
     "duration_approximate": false,
-    "duration_note": ""
+    "duration_note": null
   },
   {
     "id": "224342451500",
@@ -200,7 +200,7 @@
     "summary": "심한 덧니를 가진 청소년 환자의 발치 교정 증례 (발치 교정)의 진단, 치료계획과 진행 과정을 기록한 교정증례입니다.",
     "duration_months": 29,
     "duration_approximate": false,
-    "duration_note": ""
+    "duration_note": null
   },
   {
     "id": "224341965456",
@@ -214,7 +214,7 @@
     "summary": "임플란트를 위한 과맹출 어금니 함입 치료 증례 (어금니 결손 후, 임플란트 전 교정치료)의 진단, 치료계획과 진행 과정을 기록한 교정증례입니다.",
     "duration_months": 7,
     "duration_approximate": false,
-    "duration_note": "부분교정 기준 · 임플란트 보철 완료까지 10개월"
+    "duration_note": null
   },
   {
     "id": "224317625460",
@@ -250,7 +250,7 @@
     "description": "매복된 아래 제2대구치의 자연 맹출을 관찰하면서 위쪽 과맹출 치아를 함께 함입한 부분교정 증례입니다.",
     "duration_months": 16,
     "duration_approximate": false,
-    "duration_note": "2023년 8월–2024년 12월"
+    "duration_note": null
   },
   {
     "id": "224298037342",

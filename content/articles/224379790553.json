@@ -12,75 +12,88 @@
       "text": "20대 남성으로 골격성 III급 부정교합과 앞니의 반대교합·개방교합이 있었습니다. 앞니로 음식을 끊기 어려웠으며, 원하는 안모 변화에는 턱교정수술이 필요했습니다."
     },
     {
+      "type": "image",
+      "src": "/images/cases/imported/7701b72b90a32442aa283261.png",
+      "alt": "치료 전 · 얼굴 정면과 측면",
+      "caption": "치료 전 · 얼굴 정면과 측면",
+      "size": "wide"
+    },
+    {
+      "type": "image",
+      "src": "/images/cases/imported/c4aead498900284d6426cf53.png",
+      "alt": "치료 전 · 반대교합과 개방교합",
+      "caption": "치료 전 · 반대교합과 개방교합",
+      "size": "wide"
+    },
+    {
       "type": "heading",
-      "text": "치료 방향"
+      "text": "치료 과정"
     },
     {
       "type": "paragraph",
       "text": "수술 시 맞물림을 방해할 위쪽 뒤 어금니를 미니스크류로 먼저 함입했습니다. 술전 교정 6개월, 수술·회복 1개월, 술후 교정 7개월의 순서로 진행했습니다."
     },
     {
+      "type": "paragraph",
+      "text": "내려온 위쪽 뒤 어금니를 그대로 두면 수술 후 치아가 먼저 닿아 교합 간섭이 생길 수 있습니다. 이를 줄이기 위해 술전 교정에서 해당 어금니의 함입을 우선했습니다."
+    },
+    {
+      "type": "sequence",
+      "layout": "comparison",
+      "images": [
+        {
+          "type": "image",
+          "src": "/images/cases/imported/1af20727463f60b8e7403485.png",
+          "alt": "치료 전 교합 상태 · 위쪽 뒤 어금니의 위치",
+          "caption": "치료 전 교합 상태 · 위쪽 뒤 어금니의 위치",
+          "size": "wide"
+        },
+        {
+          "type": "image",
+          "src": "/images/cases/imported/d0de1c2ec7ef19fb6b807955.png",
+          "alt": "술전 교정 없이 수술 교합을 설정할 때의 간섭",
+          "caption": "술전 교정 없이 수술 교합을 설정할 때의 간섭",
+          "size": "wide"
+        }
+      ]
+    },
+    {
       "type": "heading",
-      "text": "치료 결과"
+      "text": "치료 후"
     },
     {
       "type": "paragraph",
       "text": "총 1년 2개월 후 주걱턱 안모와 앞니 맞물림이 개선되었습니다. 수술 후에는 새로운 턱 위치에 맞춰 치아의 교합을 세밀하게 조정했습니다. 이 기간은 해당 환자의 치료 기록입니다."
     },
     {
-      "type": "heading",
-      "text": "치료 기록"
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/7701b72b90a32442aa283261.png",
-      "alt": "\"양악수술 교정, 얼마나 걸릴까요?\" 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례 · 임상 기록 1",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/c4aead498900284d6426cf53.png",
-      "alt": "\"양악수술 교정, 얼마나 걸릴까요?\" 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례 · 임상 기록 2",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/1af20727463f60b8e7403485.png",
-      "alt": "\"양악수술 교정, 얼마나 걸릴까요?\" 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례 · 임상 기록 3",
-      "caption": ""
-    },
-    {
-      "type": "image",
-      "src": "/images/cases/imported/d0de1c2ec7ef19fb6b807955.png",
-      "alt": "\"양악수술 교정, 얼마나 걸릴까요?\" 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례 · 임상 기록 4",
-      "caption": ""
-    },
-    {
       "type": "image",
       "src": "/images/cases/imported/0ef845b5496ceb019c1dc847.png",
-      "alt": "\"양악수술 교정, 얼마나 걸릴까요?\" 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례 · 임상 기록 5",
-      "caption": ""
+      "alt": "수술 후 1개월 · 술후 교정 과정",
+      "caption": "수술 후 1개월 · 술후 교정 과정",
+      "size": "wide"
     },
     {
       "type": "image",
       "src": "/images/cases/imported/41e238b93636cf4a1ba46e5d.png",
-      "alt": "\"양악수술 교정, 얼마나 걸릴까요?\" 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례 · 임상 기록 6",
-      "caption": ""
+      "alt": "치료 후 · 앞니와 어금니 맞물림",
+      "caption": "치료 후 · 앞니와 어금니 맞물림",
+      "size": "wide"
     },
     {
       "type": "image",
       "src": "/images/cases/imported/4f9c9060c130f685b2af69c9.png",
-      "alt": "\"양악수술 교정, 얼마나 걸릴까요?\" 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례 · 임상 기록 7",
-      "caption": ""
+      "alt": "치료 전후 · 안모 변화",
+      "caption": "치료 전후 · 안모 변화",
+      "size": "wide"
     },
     {
       "type": "image",
-      "src": "/images/cases/imported/3902115ac4ac92cfba11e07a.png",
-      "alt": "\"양악수술 교정, 얼마나 걸릴까요?\" 주걱턱 3급 부정교합 교정 14개월 만에 마무리한 증례 · 임상 기록 8",
-      "caption": ""
+      "src": "/images/cases/trimmed/224379790553-tracing.png",
+      "alt": "치료 전후 중첩: 검은 선은 치료 전, 빨간 선은 치료 후",
+      "caption": "중첩 · 검은 선은 치료 전, 빨간 선은 치료 후",
+      "size": "compact"
     }
   ],
   "duration_months": 14,
-  "duration_approximate": false,
-  "duration_note": ""
+  "duration_approximate": false
 }
