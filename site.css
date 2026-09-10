@@ -30,3 +30,15 @@ footer.site-footer{background:#f5f3ee}
  .body .media-comparison{grid-template-columns:repeat(2,minmax(0,1fr))}
  .body .media-triptych{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
+
+/* Compact article archives */
+.compact-record-list{list-style:none;margin:0;padding:0;border-top:1px solid #d8dde3}
+.compact-record-list li{border-bottom:1px solid #d8dde3}
+.compact-record-list a{display:grid;grid-template-columns:2.5rem 1fr 1rem;gap:1rem;align-items:center;padding:1.4rem .5rem;text-decoration:none;color:#202b38}
+.compact-record-list a:hover{background:#f5f7fa;color:#3264a9}
+.list-number{font-size:.85rem;color:#697686;font-variant-numeric:tabular-nums}
+.list-title{font-size:1.1rem;line-height:1.6}
+.archive-pagination{display:flex;justify-content:center;gap:.6rem;margin:2rem 0}
+.archive-pagination a{display:grid;place-items:center;min-width:44px;min-height:44px;border:1px solid #d8dde3;text-decoration:none;border-radius:4px}
+.archive-pagination a[aria-current=page]{background:#3264a9;color:white;border-color:#3264a9}
+@media(max-width:600px){.compact-record-list a{grid-template-columns:1.6rem 1fr 1rem;gap:.6rem;padding:1.1rem 0}.list-title{font-size:1rem}}

@@ -29,7 +29,7 @@ def page(path, title, description, content, data):
 <title>{E(title)} | 손창한 교정과 전문의</title><meta name="description" content="{E(description)}"><meta name="author" content="손창한">
 <link rel="canonical" href="{BASE+path}"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR"><meta property="og:title" content="{E(title)} | 손창한"><meta property="og:description" content="{E(description)}"><meta property="og:url" content="{BASE+path}">
 <script type="application/ld+json">{encoded}</script>
-<link rel="stylesheet" href="/site.css"></head><body class="site-page">{navigation(path)}<main id="main-content">{content}</main>{footer()}</body></html>
+<link rel="stylesheet" href="/site.css"></head><body class="site-page">{navigation('/cases/' if path.startswith('/cases/') else '/consultation/' if path.startswith('/consultation/') else path)}<main id="main-content">{content}</main>{footer()}</body></html>
 '''
 
 
@@ -41,14 +41,27 @@ def tile(row, case_titles):
     return f'<a class="record-card {"case-record" if is_case else "journal-record"}" href="/{E(row["path"])}"><div class="record-copy"><p class="record-meta">{E(label)} <time datetime="{E(row["date"])}">{E(row["date"][:10])}</time></p><h2>{E(title)}</h2>{duration_markup(row)}<p>{E(row["summary"])}</p><span class="read-link">{"증례" if is_case else "일기"} 읽기 →</span></div></a>'
 
 
-def archive(kind, rows, case_titles):
+def archive(kind, rows, case_titles, page_number=1):
     is_case = kind == 'case'
     label, path, english = ('치료 증례','/cases/','Clinical cases') if is_case else ('상담 일기','/consultation/','Consultation journal')
     description = '환자의 고민에서 진단, 치료계획과 결과까지. 치료를 선택한 이유와 과정을 기록합니다.' if is_case else '진료실에서 자주 만나는 질문에 먼저 짧게 답하고, 그 이유를 차근히 설명합니다.'
-    content = f'<section class="page-heading"><div class="content-width"><p class="eyebrow">{english}</p><h1>{label}</h1><p class="lead">{description}</p></div></section><div class="content-width archive-section"><p class="collection-count">전체 {len(rows)}편</p><div class="record-grid {"case-grid" if is_case else "journal-grid"}">'+''.join(tile(row,case_titles) for row in rows)+'</div>'
+    base_path = path
+    page_count = max(1, (len(rows)+9)//10)
+    start_index = (page_number-1)*10
+    visible = rows[start_index:start_index+10]
+    path = base_path if page_number == 1 else base_path+f'page/{page_number}/'
+    content = f'<section class="page-heading"><div class="content-width"><p class="eyebrow">{english}</p><h1>{label}</h1><p class="lead">{description}</p></div></section><div class="content-width archive-section"><p class="collection-count">전체 {len(rows)}편 · {page_number} / {page_count} 페이지</p><ol class="compact-record-list" start="{start_index+1}">'
+    for i,row in enumerate(visible,start_index+1):
+        content += f'<li><a href="/{E(row["path"])}"><span class="list-number" aria-hidden="true">{i:02}</span><span class="list-title">{E(row["title"])}</span><span aria-hidden="true">→</span></a></li>'
+    content += '</ol><nav class="archive-pagination" aria-label="목록 페이지">'
+    for number in range(1,page_count+1):
+        target = base_path if number == 1 else base_path+f'page/{number}/'
+        current = ' aria-current="page"' if number == page_number else ''
+        content += f'<a href="{target}" aria-label="{number}페이지"{current}>{number}</a>'
+    content += '</nav>'
     if is_case: content += '<p class="case-note">개별 환자의 치료 기록입니다. 치료 방법과 기간, 결과는 환자의 상태에 따라 달라질 수 있습니다.</p>'
     content += '</div>'
-    data = {'@type':'CollectionPage','name':label,'description':description,'url':BASE+path,'inLanguage':'ko-KR','author':{'@id':BASE+'/#author'},'mainEntity':{'@type':'ItemList','numberOfItems':len(rows),'itemListElement':[{'@type':'ListItem','position':i,'url':BASE+'/'+row['path'],'name':row['title']} for i,row in enumerate(rows,1)]}}
+    data = {'@type':'CollectionPage','name':label,'description':description,'url':BASE+path,'inLanguage':'ko-KR','author':{'@id':BASE+'/#author'},'mainEntity':{'@type':'ItemList','numberOfItems':len(visible),'itemListElement':[{'@type':'ListItem','position':i,'url':BASE+'/'+row['path'],'name':row['title']} for i,row in enumerate(visible,start_index+1)]}}
     return page(path,label,description,content,data)
 
 
@@ -82,8 +95,11 @@ def build(root, consultations, cases, case_titles):
     (root/'doctor').mkdir(exist_ok=True)
     (root/'index.html').write_text(home(consultations,cases,case_titles))
     (root/'doctor/index.html').write_text(doctor())
-    (root/'consultation/index.html').write_text(archive('consultation',consultations,case_titles))
-    (root/'cases/index.html').write_text(archive('case',cases,case_titles))
+    for kind, rows, directory in [('consultation',consultations,'consultation'),('case',cases,'cases')]:
+        for number in range(1,max(1,(len(rows)+9)//10)+1):
+            destination=root/directory/('index.html' if number==1 else f'page/{number}/index.html')
+            destination.parent.mkdir(parents=True,exist_ok=True)
+            destination.write_text(archive(kind,rows,case_titles,number))
     for row in consultations+cases:
         path = root/row['path']
         if path.exists(): path.write_text(decorate_article(path.read_text(), '/cases/' if row['category']=='case' else '/consultation/'))
