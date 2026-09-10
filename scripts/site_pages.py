@@ -59,9 +59,10 @@ def archive(kind, rows, case_titles, page_number=1):
         current = ' aria-current="page"' if number == page_number else ''
         content += f'<a href="{target}" aria-label="{number}페이지"{current}>{number}</a>'
     content += '</nav>'
+    content += '<div class="record-grid '+('case-grid' if is_case else 'journal-grid')+'">'+''.join(tile(row,case_titles) for row in rows)+'</div>'
     if is_case: content += '<p class="case-note">개별 환자의 치료 기록입니다. 치료 방법과 기간, 결과는 환자의 상태에 따라 달라질 수 있습니다.</p>'
     content += '</div>'
-    data = {'@type':'CollectionPage','name':label,'description':description,'url':BASE+path,'inLanguage':'ko-KR','author':{'@id':BASE+'/#author'},'mainEntity':{'@type':'ItemList','numberOfItems':len(visible),'itemListElement':[{'@type':'ListItem','position':i,'url':BASE+'/'+row['path'],'name':row['title']} for i,row in enumerate(visible,start_index+1)]}}
+    data = {'@type':'CollectionPage','name':label,'description':description,'url':BASE+path,'inLanguage':'ko-KR','author':{'@id':BASE+'/#author'},'mainEntity':{'@type':'ItemList','numberOfItems':len(rows),'itemListElement':[{'@type':'ListItem','position':i,'url':BASE+'/'+row['path'],'name':row['title']} for i,row in enumerate(rows,1)]}}
     return page(path,label,description,content,data)
 
 
