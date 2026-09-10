@@ -48,6 +48,8 @@ IMPACTED_MOLAR_MEDIA='/images/cases/224298737298/'
 
 def category(row):
     title=row['title']; post_id=row['id']
+    edited=load_editor_content(post_id)
+    if edited and edited.get('category') in {'case','consultation'}:return edited['category']
     if post_id in COPY:return 'consultation'
     if post_id in PERSONAL or re.search(r'\[(?:근황|독서)\]|잡념|주절주절|전쟁',title): return 'exclude'
     if post_id in CASES or '증례' in title: return 'case'

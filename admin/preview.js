@@ -5,7 +5,8 @@ CMS.registerPreviewTemplate('articles', createClass({
   render: function () {
     const data = this.props.entry.get('data').toJS();
     const months = data.duration_months;
-    const duration = Number.isInteger(months) ? (data.duration_approximate ? '약 ' : '') + Math.floor(months / 12) + '년 ' + months % 12 + '개월' : '원문 미기재';
+    const years = Math.floor(months / 12), remainder = months % 12;
+    const duration = Number.isInteger(months) ? (data.duration_approximate ? '약 ' : '') + [years ? years + '년' : '', remainder || !years ? remainder + '개월' : ''].filter(Boolean).join(' ') : '원문 미기재';
     const photo = (b, key) => {
       const asset = b.src ? this.props.getAsset(b.src) : null;
       return h('figure', {key, className: 'case-media'},

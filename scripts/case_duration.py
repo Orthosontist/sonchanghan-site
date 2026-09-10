@@ -6,7 +6,9 @@ def label(data):
     if months is None:return '원문 미기재'
     if isinstance(months,bool) or not isinstance(months,int) or months<0:
         raise ValueError('Treatment duration must be a non-negative integer or null')
-    return ('약 ' if data.get('duration_approximate') else '')+f'{months//12}년 {months%12}개월'
+    years,remainder=divmod(months,12)
+    parts=([f'{years}년'] if years else [])+([f'{remainder}개월'] if remainder or not years else [])
+    return ('약 ' if data.get('duration_approximate') else '')+' '.join(parts)
 
 def markup(data):
     if data.get('category')!='case':return ''
