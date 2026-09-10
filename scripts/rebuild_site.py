@@ -245,6 +245,35 @@ def archive(kind,rows):
     data={'@context':'https://schema.org','@type':'CollectionPage','name':label+' | 손창한 교정과 전문의','description':description,'url':url,'inLanguage':'ko-KR','author':{'@id':BASE+'/#author'}}
     return '<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+label+' | 손창한 교정과 전문의</title><meta name="description" content="'+description+'"><link rel="canonical" href="'+url+'"><script type="application/ld+json">'+json.dumps(data,ensure_ascii=False)+'</script><link rel="stylesheet" href="/journal/style.css"><link rel="stylesheet" href="/journal/ai-readable.css"></head><body><header><a href="/">Dr. Son Chang Han</a><a href="/'+('consultation' if is_case else 'cases')+'/">'+('상담일기' if is_case else '교정증례')+'</a></header><main><p class="eyebrow">'+('Clinical Cases' if is_case else 'Consultation Journal')+'</p><h1>'+label+'</h1><p class="intro">'+description+'</p><div class="archive archive-rich '+('case-archive' if is_case else 'consultation-archive')+'">'+''.join(card(row) for row in rows)+'</div></main></body></html>'
 
+def normalize_consultation_source(text, row):
+    doc = BeautifulSoup(text, 'html.parser')
+    for node in doc.select('.consultation-source'):
+        node.decompose()
+    for footer in doc.select('article footer'):
+        if '네이버 원문 보기' in footer.get_text():
+            footer.decompose()
+    answer = doc.select_one('.answer-box')
+    if not answer and doc.select_one('.body'):
+        answer = doc.new_tag('aside', attrs={'class': 'answer-box'})
+        label = doc.new_tag('span'); label.string = '핵심 답변'
+        summary_node = doc.new_tag('p'); summary_node.string = row['summary']
+        answer.extend([label, summary_node])
+        doc.select_one('.body').insert_before(answer)
+    if answer:
+        source = doc.new_tag('aside', attrs={'class': 'consultation-source'})
+        intro = doc.new_tag('p')
+        intro.string = '상담의 배경과 더 자세한 이야기가 궁금하다면, 블로그 원문을 읽어보세요.'
+        source.append(intro)
+        link = doc.new_tag('a', href=row['source'], target='_blank', rel='noopener noreferrer')
+        link.string = '블로그 원문 보기'
+        source.append(link)
+        source.append(' · ')
+        archive_link = doc.new_tag('a', href='/consultation/')
+        archive_link.string = '상담 일기 전체 보기'
+        source.append(archive_link)
+        answer.insert_after(source)
+    return str(doc)
+
 def main():
     manifest=ROOT/'journal/posts.json'; posts=json.loads(manifest.read_text()); normalized=[]
     for old in posts:
@@ -265,6 +294,8 @@ def main():
             text=re.sub(r'<meta name="robots" content="noindex,follow">','',text); body=source_body(text)
             if body:path.write_text(render(row,body))
         else:path.write_text(enhance_legacy(row,re.sub(r'<meta name="robots" content="noindex,follow">','',text)))
+        if row['category']=='consultation':
+            path.write_text(normalize_consultation_source(path.read_text(), row))
     normalized.sort(key=lambda row:row['date'],reverse=True); manifest.write_text(json.dumps(normalized,ensure_ascii=False,indent=2)+'\n')
     consultations=[row for row in normalized if row['category']=='consultation']; cases=[row for row in normalized if row['category']=='case']
     public=[row for row in normalized if row['category']!='exclude']
