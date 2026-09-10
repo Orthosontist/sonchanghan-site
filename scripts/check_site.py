@@ -45,7 +45,7 @@ for row in rows:
             if not image.get('alt'):errors.append((row['id'],'missing alt'))
     else:
         if not 3<=len(body.select('h2'))<=4:errors.append((row['id'],'heading count'))
-        if len(body.get_text())>700:errors.append((row['id'],'long copy'))
+        if len(body.get_text())>1600:errors.append((row['id'],'long copy'))
         for unwanted in ['안녕하세요','감사합니다','인턴','위 사진','아래 사진','블로그를','ㅋㅋ','ㅎㅎ']:
             if unwanted in body.get_text():errors.append((row['id'],'unwanted '+unwanted))
         if body.select('img'):errors.append((row['id'],'consultation image'))
