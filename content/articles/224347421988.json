@@ -1,5 +1,5 @@
 {
-  "title": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 (미니스크류 이용한 정중선 개선, Simple Class I Crowding)",
+  "title": "총생과 정중선 교정",
   "summary": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 (미니스크류 이용한 정중선 개선, Simple Class I Crowding)의 진단, 치료계획과 진행 과정을 기록한 교정증례입니다.",
   "category": "case",
   "blocks": [
@@ -73,5 +73,8 @@
       "alt": "삐뚤빼뚤 치아 + 정중선 불일치 비발치 교정 치료 증례 · 임상 기록 7",
       "caption": ""
     }
-  ]
+  ],
+  "duration_months": 16,
+  "duration_approximate": false,
+  "duration_note": ""
 }

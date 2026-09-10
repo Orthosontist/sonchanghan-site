@@ -27,6 +27,9 @@ collections:
     fields:
       - {label: 제목, name: title, widget: string}
       - {label: 핵심 요약, name: summary, widget: text}
+      - {label: 치료 기간 (총 개월 수), name: duration_months, widget: number, value_type: int, min: 0, required: false, hint: '증례만 입력. 15 입력 시 1년 3개월로 표시됩니다. 사진 촬영일이 아닌 원문 치료 기간 기준이며, 미기재 시 비워두세요.'}
+      - {label: 대략적인 기간, name: duration_approximate, widget: boolean, default: false, required: false}
+      - {label: 치료 기간 보충 설명, name: duration_note, widget: string, required: false}
       - {label: 분류, name: category, widget: hidden}
       - label: 본문 순서
         name: blocks

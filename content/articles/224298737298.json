@@ -1,5 +1,5 @@
 {
-  "title": "매복 어금니 자연 맹출 치료 증례 (미니스크류 실패, 미니스크류 없이)",
+  "title": "매복 어금니 자연 맹출",
   "summary": "매복된 아래 제2대구치의 자연 맹출을 관찰하면서 위쪽 과맹출 치아를 함께 함입한 부분교정 증례입니다.",
   "category": "case",
   "blocks": [
@@ -94,5 +94,8 @@
       "alt": "아래 왼쪽 제2대구치의 치료 전후 방사선사진",
       "caption": "치료 전후 비교"
     }
-  ]
+  ],
+  "duration_months": null,
+  "duration_approximate": false,
+  "duration_note": "자연 맹출 관찰 약 1년 0개월 · 전체 치료 기간은 원문 미기재"
 }

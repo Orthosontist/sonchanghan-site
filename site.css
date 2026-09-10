@@ -12,3 +12,9 @@ header.site-header{position:sticky;top:0;z-index:20;max-width:none;margin:0;padd
 .case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 footer.site-footer{background:#f5f3ee}
 @media(max-width:620px){.case-grid{grid-template-columns:1fr}}
+/* Shared case metadata on cards and within the article summary. */
+.case-duration{display:flex;align-items:baseline;flex-wrap:wrap;gap:.35rem .75rem;margin:1rem 0;color:#253f64;font-size:1rem;line-height:1.6}
+.case-duration>span{color:#626b77;font-size:.875rem}
+.case-duration>strong{font-weight:600}
+.case-duration>small{flex-basis:100%;font-size:.875rem;color:#626b77}
+.answer-box .case-duration{margin:1.25rem 0 0;padding-top:1rem;border-top:1px solid #d5dde7}

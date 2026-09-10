@@ -1,5 +1,5 @@
 {
-  "title": "짧은 치료 기간으로 나비 앞니 전체 교정 (나비 치아 비발치 전체 교정)",
+  "title": "나비 앞니 전체교정",
   "summary": "짧은 치료 기간으로 나비 앞니 전체 교정 (나비 치아 비발치 전체 교정)의 진단, 치료계획과 진행 과정을 기록한 교정증례입니다.",
   "category": "case",
   "blocks": [
@@ -61,5 +61,8 @@
       "alt": "짧은 치료 기간으로 나비 앞니 전체 교정 · 임상 기록 5",
       "caption": ""
     }
-  ]
+  ],
+  "duration_months": 15,
+  "duration_approximate": false,
+  "duration_note": ""
 }

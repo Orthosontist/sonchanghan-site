@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from site_pages import build as build_four_pages
 from case_content import COPY as CASE_COPY, render as render_case_content
 from editor_content import load as load_editor_content, render as render_editor_content
+from case_duration import markup as duration_markup
 
 ROOT=Path(__file__).resolve().parents[1]; BASE='https://drsonchanghan.com'; UPDATED=date.today().isoformat()
 COPY=json.loads((ROOT/'scripts/consultation_copy.json').read_text())
@@ -161,7 +162,7 @@ def render(row,body):
     sources=''
     if citations:sources='<section class="sources"><h2>근거와 출처</h2><ul>'+''.join('<li><a href="'+E(link)+'" target="_blank" rel="noopener noreferrer">'+E(urlsplit(link).hostname or link)+' ↗</a></li>' for link in citations)+'</ul></section>'
     meta='<title>'+E(row['title'])+' | 손창한 교정과 전문의</title><meta name="description" content="'+E(row['summary'])+'"><meta name="author" content="손창한"><link rel="canonical" href="'+url+'"><meta property="og:type" content="article"><meta property="og:locale" content="ko_KR"><meta property="og:title" content="'+E(row['title'])+'"><meta property="og:description" content="'+E(row['summary'])+'"><meta property="og:url" content="'+url+'">'+(('<meta property="og:image" content="'+E(image)+'">') if image else '')+'<script type="application/ld+json">'+json.dumps(data,ensure_ascii=False).replace('</','<\\/')+'</script>'
-    return '<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+meta+'<link rel="stylesheet" href="/journal/style.css"><link rel="stylesheet" href="/journal/ai-readable.css"></head><body><header><a href="/">Dr. Son Chang Han</a><a href="/'+section+'/">'+label+' 목록</a></header><main><article><p class="eyebrow">'+('Clinical Case' if section=='cases' else 'Consultation Journal')+' · 손창한의 기록</p><h1>'+E(row['title'])+'</h1><p class="meta"><time datetime="'+E(row['date'])+'">'+E(row['date'][:10])+'</time> · <a href="/#about">교정과 전문의 손창한</a> · 홈페이지 업데이트 <time datetime="'+row['updated']+'">'+row['updated']+'</time></p><aside class="answer-box"><span>'+('증례 요약' if section=='cases' else '핵심 답변')+'</span><p>'+E(row['summary'])+'</p></aside><div class="body">'+body+'</div>'+sources+'<aside class="author-card"><strong>작성자 · 손창한</strong><p>보건복지부 인증 치과교정과 전문의 · 치의학박사<br>서울대학교치과병원 치과교정과 임상강사</p></aside><footer><p>네이버 블로그에 게시한 글을 바탕으로 홈페이지에서 분류·요약한 기록입니다.</p><a href="'+row['source']+'" target="_blank" rel="noopener noreferrer">네이버 원문 보기 ↗</a><p><a href="/'+section+'/">← '+label+' 전체 보기</a></p></footer></article></main><script src="/journal/lightbox.js" defer></script></body></html>'
+    return '<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+meta+'<link rel="stylesheet" href="/journal/style.css"><link rel="stylesheet" href="/journal/ai-readable.css"></head><body><header><a href="/">Dr. Son Chang Han</a><a href="/'+section+'/">'+label+' 목록</a></header><main><article><p class="eyebrow">'+('Clinical Case' if section=='cases' else 'Consultation Journal')+' · 손창한의 기록</p><h1>'+E(row['title'])+'</h1><p class="meta"><time datetime="'+E(row['date'])+'">'+E(row['date'][:10])+'</time> · <a href="/#about">교정과 전문의 손창한</a> · 홈페이지 업데이트 <time datetime="'+row['updated']+'">'+row['updated']+'</time></p><aside class="answer-box"><span>'+('증례 요약' if section=='cases' else '핵심 답변')+'</span><p>'+E(row['summary'])+'</p>'+duration_markup(row)+'</aside><div class="body">'+body+'</div>'+sources+'<aside class="author-card"><strong>작성자 · 손창한</strong><p>보건복지부 인증 치과교정과 전문의 · 치의학박사<br>서울대학교치과병원 치과교정과 임상강사</p></aside><footer><p>네이버 블로그에 게시한 글을 바탕으로 홈페이지에서 분류·요약한 기록입니다.</p><a href="'+row['source']+'" target="_blank" rel="noopener noreferrer">네이버 원문 보기 ↗</a><p><a href="/'+section+'/">← '+label+' 전체 보기</a></p></footer></article></main><script src="/journal/lightbox.js" defer></script></body></html>'
 
 def enhance_legacy(row,text):
     if row['category']=='case' and '/journal/lightbox.js' not in text:
@@ -249,6 +250,8 @@ def main():
         edited=load_editor_content(row['id'])
         if edited:
             row['title']=edited['title'];row['summary']=edited['summary'];row['description']=row['summary']
+            if row['category']=='case':
+                for key in ('duration_months','duration_approximate','duration_note'):row[key]=edited.get(key)
         path=ROOT/row['path']
         if not path.exists():continue
         text=path.read_text()

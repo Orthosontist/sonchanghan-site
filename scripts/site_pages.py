@@ -34,9 +34,11 @@ def page(path, title, description, content, data):
 
 
 def tile(row, case_titles):
+    from case_duration import markup as duration_markup
     is_case = row['category'] == 'case'
     label, title = case_titles.get(row['id'], ('치료 증례', row['title'])) if is_case else ('상담 일기', row['title'])
-    return f'<a class="record-card {"case-record" if is_case else "journal-record"}" href="/{E(row["path"])}"><div class="record-copy"><p class="record-meta">{E(label)} <time datetime="{E(row["date"])}">{E(row["date"][:10])}</time></p><h2>{E(title)}</h2><p>{E(row["summary"])}</p><span class="read-link">{"증례" if is_case else "일기"} 읽기 →</span></div></a>'
+    if is_case:title=row['title']
+    return f'<a class="record-card {"case-record" if is_case else "journal-record"}" href="/{E(row["path"])}"><div class="record-copy"><p class="record-meta">{E(label)} <time datetime="{E(row["date"])}">{E(row["date"][:10])}</time></p><h2>{E(title)}</h2>{duration_markup(row)}<p>{E(row["summary"])}</p><span class="read-link">{"증례" if is_case else "일기"} 읽기 →</span></div></a>'
 
 
 def archive(kind, rows, case_titles):
