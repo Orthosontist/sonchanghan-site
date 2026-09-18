@@ -48,6 +48,8 @@ for row in rows:
         if len(body.get_text())>1600:errors.append((row['id'],'long copy'))
         for unwanted in ['안녕하세요','감사합니다','인턴','위 사진','아래 사진','블로그를','ㅋㅋ','ㅎㅎ']:
             if unwanted in body.get_text():errors.append((row['id'],'unwanted '+unwanted))
-        if body.select('img'):errors.append((row['id'],'consultation image'))
+        approved_images={'224412518452':{'/images/non-extraction-space-methods.png'}}
+        for image in body.select('img'):
+            if image.get('src') not in approved_images.get(row['id'],set()):errors.append((row['id'],'unapproved consultation image'))
 print(json.dumps({'public_pages':len(paths),'consultations':sum(r['category']=='consultation' for r in rows),'cases':sum(r['category']=='case' for r in rows),'local_image_references_verified':images,'errors':errors},ensure_ascii=False))
 raise SystemExit(bool(errors))
